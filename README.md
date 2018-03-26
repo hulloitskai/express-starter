@@ -1,5 +1,5 @@
 # express-starter
-*A starter setup for [Express](https://www.expressjs.com), with [PM2](http://pm2.keymetrics.io) launching support.*
+*A starter setup for [Express](https://www.expressjs.com), with [PM2](http://pm2.keymetrics.io) launching support. Works really well with [`ng-starter`](https://github.com/steven-xie/ng-starter)!*
 
 ## Installation:
 ```bash
