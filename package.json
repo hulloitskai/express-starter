@@ -1,34 +1,44 @@
 {
   "name": "express-starter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A starter setup for Express, with PM2 support.",
-  "main": "src/server.js",
-  "repository": "https://github.com/steven-xie/express-starter",
-  "author": "Steven Xie",
-  "private": true,
+  "homepage": "https://github.com/steven-xie/express-starter",
+  "repository": "github:steven-xie/express-starter",
+  "bugs": {
+    "url": "https://github.com/steven-xie/express-starter/issues",
+    "email": "1376678+steven-xie@users.noreply.github.com"
+  },
+  "author": "Steven Xie <hello@stevenxie.me> (https://stevenxie.me)",
+  "license": "MIT",
   "config": {
-    "debugLevel": "ts-express:server"
+    "devDebugLevel": "server:*, express:*",
+    "prodDebugLevel": "server:critical,server:alert",
+    "reloadBrowserOnChange": false
   },
   "scripts": {
-    "dev": "NODE_ENV=development DEBUG=$npm_package_config_debugLevel nodemon --watch src/ src/server.js",
-    "prod": "NODE_ENV=production node src/server.js",
+    "dev": "NODE_ENV=development nodemon --watch 'src/**/*.ts' --watch 'dist/**/*.*' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/server.ts ",
+    "prod": "NODE_ENV=production ts-node --transpile-only src/server.ts",
     "start": "npm run prod",
-    "pm2": "NODE_ENV=production pm2 start pm2.ecosystem.config.js"
+    "pm2": "pm2 start pm2.ecosystem.config.js --env production",
+    "prettier": "prettier --write src/**/*.ts"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
     "debug": "^3.1.0",
-    "express": "^4.16.2",
-    "morgan": "^1.9.0"
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "opn": "^5.3.0",
+    "ts-node": "^6.0.0",
+    "typescript": "^2.8.3"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.8",
     "@types/debug": "^0.0.30",
     "@types/express": "^4.11.1",
     "@types/morgan": "^1.7.35",
-    "@types/node": "^9.4.7",
-    "nodemon": "^1.17.1",
-    "tslint": "^5.9.1",
-    "typescript": "^2.7.2"
+    "@types/node": "^9.6.6",
+    "@types/opn": "^5.1.0",
+    "nodemon": "^1.17.3",
+    "prettier": "^1.12.1"
   }
 }
