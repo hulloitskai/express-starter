@@ -5,13 +5,17 @@ module.exports = {
    */
   apps: [
     {
-      name: 'express-starter',
-      script: 'src/server.js',
-      env: { COMMON_VARIABLE: 'true' },
-      env_production : {
-        NODE_ENV: 'production'
-      }
-    },
+      name: "express-starter",
+      script: "src/server.ts",
+      watch: false,
+      env: {
+        NODE_ENV: "development"
+      },
+      env_production: {
+        NODE_ENV: "production"
+      },
+      interpreter_args: "--transpile-only"
+    }
   ],
 
   /**
@@ -19,25 +23,14 @@ module.exports = {
    * http://pm2.keymetrics.io/docs/usage/deployment/
    */
   /*
-  deploy : {
-    production : {
-      user : 'node',
-      host : '212.83.163.1',
-      ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
-      path : '/var/www/production',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
-    },
-    dev : {
-      user : 'node',
-      host : '212.83.163.1',
-      ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
-      path : '/var/www/development',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env dev',
-      env  : {
-        NODE_ENV: 'dev'
-      }
+  deploy: {
+    production: {
+      user: "%USER%", // i.e. dev
+      host: "%HOST%", // i.e. 127.0.0.1
+      ref: "origin/master", // Branch
+      repo: "git@github.com:%USERNAME%/%REPOSITORY%.git",
+      path: "%PATH_TO_APP%",
+      "post-deploy": "npm install && npm run pm2"
     }
   }
   */
