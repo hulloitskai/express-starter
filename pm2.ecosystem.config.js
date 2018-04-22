@@ -30,7 +30,8 @@ module.exports = {
       ref: "origin/master", // Branch
       repo: "git@github.com:%USERNAME%/%REPOSITORY%.git",
       path: "%PATH_TO_APP%",
-      "post-deploy": "npm install && npm run pm2"
+      "post-deploy": "npm install & npm run pm2",
+      "post-setup": "pm2 install typescript"
     }
   }
   */

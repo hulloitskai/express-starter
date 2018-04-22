@@ -19,7 +19,7 @@ npm install
 ```bash
 # If using Yarn:
 yarn dev # starts a dev server with hot-reloading and detailed debugging.
-yarn prod # starts a production server with debugging disabled and no hot-reloading.
+yarn prod # starts a production server with minimal debugging and no hot-reloading.
 yarn start # same as yarn prod
 
 # If using NPM, replace 'yarn ...' with 'npm run ...' for each command.
@@ -30,15 +30,24 @@ yarn start # same as yarn prod
 * `/api` - Main API endpoint; returns a `text/plain` message indicating that the API is working.
 * `/api/puppies` - Sample API endpoint that counts page refreshes. Sends data as `application/json`.
 
-### PM2 Usage
-To launch on a server with [PM2](http://pm2.keymetrics.io) installed globally, run with `yarn pm2` or `npm run pm2`. This will allow you to monitor the status of the server, and auto-restart it if it crashes. 
+### PM2 Usage:
+To launch on a server with [PM2](http://pm2.keymetrics.io) installed globally, run with `yarn pm2` or `npm run pm2`. This will allow you to monitor the status of the server, and auto-restart it if it crashes.  **PM2 must have Typescript installed: `pm2 install typescript`.**
 
-**PM2 must have Typescript installed: `pm2 install typescript`.**
+#### Using auto-deployment:
+If you have your server settings correctly filled out in `pm2.ecosystem.conf.js → deployment`, and your server has your GitHub SSH keys / credentials, then you can set-up the server instantly as follows:
+```bash
+# If using Yarn:
+yarn pm2-setup
+yarn pm2-deploy
+```
+
+After that, every time you want to update to the latest Git commit, just run `yarn pm2-update`. If you've at some point performed a `git push --force`, then it is necessary to run `yarn pm2-update-force` instead.
 
 ## Configuration
 ### `package.json → config`:
 * `devDebugLevel` – debugger verbosity for when the server is started in development mode *(by default, shows all express and server messages)*.
 * `prodDebugLevel` – debugger verbosity for when the server is started in production mode *(by default, shows only server alerts and critical messages)*. 
+* `reloadBrowserOnChange` – whether or not you would like the browser to reload when you save your code. Useful if you're making visual changes.
 
 ### `pm2.ecosystem.config.js`
 Allows you to configure custom properties for PM2 monitoring and remote deployment. [See the documentation for details](http://pm2.keymetrics.io/docs/usage/application-declaration/).
