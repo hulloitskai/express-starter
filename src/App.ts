@@ -3,7 +3,7 @@ import * as express from "express";
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
 
-import apiRouter from "./api-routes/APIRouter";
+import apiRouter from "./routes/APIRouter";
 
 /// Creates and configures an Express web server.
 class App {

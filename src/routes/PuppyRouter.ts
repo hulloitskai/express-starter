@@ -1,6 +1,7 @@
 import CustomRouter from "../common/CustomRouter";
 import { sendPrettyJSON } from "../common/JSONUtils";
 import { Request, Response } from "express";
+import debug = require("debug");
 
 class PuppyRouter extends CustomRouter {
   private hitCount = 0;
@@ -10,13 +11,14 @@ class PuppyRouter extends CustomRouter {
   }
 
   getPuppies(req: Request, res: Response) {
-    console.log("HIT!");
+    debug("server:api:puppies")("HIT!");
     this.hitCount += 1;
     sendPrettyJSON(res, {
       messages: "Puppies API was hit!",
       requestQuery: req.query,
       requestIP: req.ip,
-      count: this.hitCount
+      count: this.hitCount,
+      NODE_ENV: process.env.NODE_ENV
     });
   }
 }

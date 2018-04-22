@@ -7,8 +7,10 @@ process.env.DEBUG =
     ? process.env.npm_package_config_prodDebugLevel
     : process.env.npm_package_config_devDebugLevel;
 
-import * as debug from "debug";
+import * as _debug from "debug";
 import App from "./App";
+
+const debug = _debug("server");
 
 // Set the specified port (or 3000).
 const port = normalizePort(process.env.PORT || 3000);
@@ -26,7 +28,7 @@ if (
   process.env.npm_package_config_reloadBrowserOnChange == "true"
 ) {
   opn("http://127.0.0.1:3000").catch((err: Error) => {
-    debug("server:alert")(`could not open in browser: ${err}`);
+    debug(`could not open in browser: ${err}`);
   });
 }
 
@@ -53,7 +55,7 @@ function onError(error: NodeJS.ErrnoException) {
       throw error;
   }
 
-  debug("server:critical")("exiting due to critical error...");
+  debug("exiting due to critical error...");
   process.exit(1);
 }
 
@@ -61,5 +63,5 @@ function onListening() {
   const addr = server.address();
   // const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
   const bind = `port ${addr.port}`;
-  debug("server:alert")(`listening on ${bind}`);
+  debug(`listening on ${bind}`);
 }
