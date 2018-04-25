@@ -6,14 +6,14 @@
   "repository": "github:steven-xie/express-starter",
   "bugs": {
     "url": "https://github.com/steven-xie/express-starter/issues",
-    "email": "1376678+steven-xie@users.noreply.github.com"
+    "email": "dev@stevenxie.me"
   },
   "author": "Steven Xie <hello@stevenxie.me> (https://stevenxie.me)",
   "license": "MIT",
   "config": {
     "devDebugLevel": "server:*,express:*",
     "prodDebugLevel": "server",
-    "reloadBrowserOnChange": false
+    "reloadBrowserOnChange": true
   },
   "scripts": {
     "dev": "NODE_ENV=development nodemon --watch 'src/**/*.ts' --watch 'dist/**/*.*' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/server.ts ",
