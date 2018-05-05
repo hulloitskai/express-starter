@@ -1,5 +1,4 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
     "target": "es5",
     "lib": ["es2017"],
@@ -7,14 +6,19 @@
     "outDir": "./dist-server/out-tsc",
     "module": "commonjs",
     "moduleResolution": "node",
-    "strict": true,
-    "sourceMap": true,
-    "inlineSources": true,
     "types": ["node"],
     "typeRoots": ["node_modules/@types"],
-    "removeComments": true
+    "strict": true,
+    "allowJs": false,
+    "sourceMap": true,
+    "inlineSources": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src/**/*"
-  ]
+  "compileOnSave": false,
+  "include": [ "src/**/*.ts", "typings/index.d.ts" ]
 }
