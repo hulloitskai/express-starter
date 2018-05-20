@@ -28,8 +28,12 @@ async function start(app: Application) {
     logger.info('listening on %s', bind);
 
     // Open in browser (for dev mode only), while logging errors as an alert...
-    const { NODE_ENV, npm_package_config_browser_live_reload: liveReload } = process.env;
-    if (NODE_ENV === 'development' && liveReload) {
+    const {
+      NODE_ENV,
+      IS_DOCKER,
+      npm_package_config_browser_live_reload: liveReload
+    } = process.env;
+    if (NODE_ENV === 'development' && liveReload && !IS_DOCKER) {
       opn(`http://127.0.0.1:${port}`).catch((err: Error) =>
         logger.warn('could not open in browser: %O', err)
       );

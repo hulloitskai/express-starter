@@ -1,0 +1,5 @@
+node_modules
+yarn-error.log
+
+# No need for PM2 when using Docker
+pm2.ecosystem.config.js

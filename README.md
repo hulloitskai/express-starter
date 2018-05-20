@@ -47,10 +47,31 @@ yarn pm2-deploy
 
 After that, every time you want to update to the latest Git commit, just run `yarn pm2-update`. If you've at some point performed a `git push --force`, then it is necessary to run `yarn pm2-update-force` instead.
 
+## Docker Usage
+### Setup
+Start by building an image:
+```bash
+# Development
+yarn docker-build-dev
+
+# Production
+yarn docker-build-prod
+```
+
+Then, run a container (which is configured to expose port *3000*, and named `express-starter`). This instantiates it from an image (and should only be run once).
+```bash
+yarn docker-run
+```
+
+### Regular usage
+To stop the container, run `yarn docker-stop`, and to run it again, run `yarn docker-run`. There's no need to perform `doccker-run` after the initial container instantiation.
+
+To remove the container entirely, run `yarn docker-rm`.
+
 ## Configuration
 ### `package.json → config`:
 * `dev-log-level` – logging level for when the server is started in development mode *(default: `debug`)*.
-* `prod-log-level` – logging level for when the server is started in production mode *(default: `silent`)*. 
+* `prod-log-level` – logging level for when the server is started in production mode *(default: `error`)*. 
 * `jmespath-log-filter` – the filter to be applied to the console output logs during development. Uses the [JMESPath query language](http://jmespath.org). To show all output, use: `*`. *(default: ``contains(name, `server`)``)*
 * `browser-live-reload` – whether or not you would like the *browser* to reload when you save your code. Useful if you're making visual changes. (The server itself will always live-reload to reflect new changes). *(default: `true`)*
 
