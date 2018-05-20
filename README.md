@@ -1,5 +1,9 @@
 # express-starter
-*An opinionated Typescript starter setup for [Express](https://www.expressjs.com), with [PM2](http://pm2.keymetrics.io) launching support. Works really well with [`ng-starter`](https://github.com/steven-xie/ng-starter)!*
+*An opinionated Typescript starter setup for [Express](https://www.expressjs.com), with [Pino](https://getpino.io) logging and [PM2](http://pm2.keymetrics.io) launching support. Works really well with [`ng-starter`](https://github.com/steven-xie/ng-starter)!*
+
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![type definitions: Typescript](https://img.shields.io/badge/type%20definitions-Typescript-blue.svg)](https://www.typescriptlang.org)
+
 
 This project is formatted with [Prettier](https://prettier.io), and compiles Typescript on-the-fly with [`ts-node`](https://github.com/TypeStrong/ts-node) (which actually has [*very little overhead*](https://www.bennadel.com/blog/3268-experimenting-with-ts-node-and-using-typescript-in-node-js-on-the-server.htm), and is [*usable in production*](https://github.com/TypeStrong/ts-node/issues/104#issuecomment-250252708)).
 
@@ -45,9 +49,10 @@ After that, every time you want to update to the latest Git commit, just run `ya
 
 ## Configuration
 ### `package.json → config`:
-* `devDebugLevel` – debugger verbosity for when the server is started in development mode *(by default, shows all express and server messages)*.
-* `prodDebugLevel` – debugger verbosity for when the server is started in production mode *(by default, shows only server alerts and critical messages)*. 
-* `reloadBrowserOnChange` – whether or not you would like the browser to reload when you save your code. Useful if you're making visual changes.
+* `dev-log-level` – logging level for when the server is started in development mode *(default: `debug`)*.
+* `prod-log-level` – logging level for when the server is started in production mode *(default: `silent`)*. 
+* `jmespath-log-filter` – the filter to be applied to the console output logs during development. Uses the [JMESPath query language](http://jmespath.org). To show all output, use: `*`. *(default: ``contains(name, `server`)``)*
+* `browser-live-reload` – whether or not you would like the *browser* to reload when you save your code. Useful if you're making visual changes. (The server itself will always live-reload to reflect new changes). *(default: `true`)*
 
 ### `pm2.ecosystem.config.js`
 Allows you to configure custom properties for PM2 monitoring and remote deployment. [See the documentation for details](http://pm2.keymetrics.io/docs/usage/application-declaration/).
