@@ -17,15 +17,21 @@
     "browser-live-reload": true
   },
   "scripts": {
-    "dev": "./Scripts/start-dev.sh",
+    "dev": "./Scripts/dev.sh",
     "prod": "NODE_ENV=production ts-node --transpile-only src/server.ts",
-    "start": "npm run dev",
+    "start": "if [ \"$NODE_ENV\" == \"production\" ]; then npm run prod; else npm run dev; fi",
     "prettier": "prettier --write 'src/**/*.ts'",
     "pm2": "pm2 startOrRestart pm2.ecosystem.config.js --env production",
     "pm2-setup": "pm2 deploy pm2.ecosystem.config.js production setup",
     "pm2-deploy": "pm2 deploy pm2.ecosystem.config.js production",
     "pm2-update": "pm2 deploy pm2.ecosystem.config.js production update",
-    "pm2-update-force": "npm run pm2-update --force"
+    "pm2-update-force": "npm run pm2-update --force",
+    "docker-build-dev": "./Scripts/docker-build-dev.sh",
+    "docker-build-prod": "./Scripts/docker-build-prod.sh",
+    "docker-run": "docker run -p 3000:3000 --name express-starter steven-xie/express-starter",
+    "docker-rm": "docker rm express-starter",
+    "docker-start": "docker start express-starter",
+    "docker-stop": "docker stop express-starter"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
