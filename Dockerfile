@@ -1,9 +1,7 @@
 FROM node:9.11.1-alpine
-MAINTAINER Steven Xie <dev@stevenxie.me>
 
-# Install git and bash
-RUN apk update && apk upgrade && \
-    apk add --no-cache bash git
+# Set labels
+LABEL version="1.0.0" maintainer="Steven Xie <dev@stevenxie.me>"
 
 # Create app directory
 WORKDIR /app
@@ -17,13 +15,18 @@ ARG ENV="production";
 # Set environment variables
 ENV NODE_ENV=$ENV IS_DOCKER=true
 
-# Install dependencies
-RUN if [ "$ENV" == "development" ]; \
+# Install git, bash, and package dependencies
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git && \
+    if [ "$ENV" == "development" ]; \
     then yarn install; \
     else yarn install --production; \
     fi
 
 # Expose port
 EXPOSE 3000
+
+# Expose mount point
+VOLUME /app/dist
 
 CMD [ "yarn", "start" ]

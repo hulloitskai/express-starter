@@ -68,6 +68,18 @@ To stop the container, run `yarn docker-stop`, and to run it again, run `yarn do
 
 To remove the container entirely, run `yarn docker-rm`.
 
+### Accessing Volumes
+If you're on a Mac, you won't be able to access the `express-vol` Docker volume directly through the filesystem: You have to access it through Docker's VM as follows:
+```bash
+screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
+
+# At this point, your screen will become blank. 
+#   Press enter, and wait for the prompt to show up. 
+#   When it does, you can access the volumes at the 
+#   following location:
+cd /var/lib/docker/volumes
+```
+
 ## Configuration
 ### `package.json → config`:
 * `dev-log-level` – logging level for when the server is started in development mode *(default: `debug`)*.

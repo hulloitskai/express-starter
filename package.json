@@ -28,10 +28,12 @@
     "pm2-update-force": "npm run pm2-update --force",
     "docker-build-dev": "./Scripts/docker-build-dev.sh",
     "docker-build-prod": "./Scripts/docker-build-prod.sh",
-    "docker-run": "docker run -p 3000:3000 --name express-starter steven-xie/express-starter",
+    "docker-run": "./Scripts/docker-run.sh",
     "docker-rm": "docker rm express-starter",
     "docker-start": "docker start express-starter",
-    "docker-stop": "docker stop express-starter"
+    "docker-stop": "docker stop express-starter",
+    "docker-exec": "docker exec express-starter",
+    "docker-bash": "docker exec -it express-starter bash"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -39,7 +41,6 @@
     "express": "^4.16.3",
     "express-pino-logger": "^3.0.1",
     "get-port": "^3.2.0",
-    "opn": "^5.3.0",
     "pino": "^4.16.1",
     "ts-node": "^6.0.3",
     "typescript": "^2.8.3"
@@ -51,6 +52,7 @@
     "@types/opn": "^5.1.0",
     "@types/pino": "^4.7.1",
     "nodemon": "^1.17.4",
+    "opn": "^5.3.0",
     "pino-pretty": "https://github.com/pinojs/pino-pretty.git#v2.0.0-rc.1",
     "prettier": "^1.12.1"
   }
