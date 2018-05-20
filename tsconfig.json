@@ -1,24 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["es2017"],
-    "rootDir": "src",
-    "outDir": "./dist-server/out-tsc",
+    "target": "es6",
+    "typeRoots": ["node_modules/@types", "./typings"],
     "module": "commonjs",
+    "lib": ["ESNEXT"],
     "moduleResolution": "node",
-    "types": ["node"],
-    "typeRoots": ["node_modules/@types"],
+    "outDir": "dist",
+    "rootDir": "src",
     "strict": true,
     "allowJs": false,
     "sourceMap": true,
     "inlineSources": true,
     "removeComments": true,
     "noImplicitAny": false,
-    "noUnusedLocals": true,
     "noImplicitReturns": true,
-    "noUnusedParameters": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": false
   },
-  "compileOnSave": false,
-  "include": [ "src/**/*.ts", "typings/index.d.ts" ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"],
+  "compileOnSave": false
 }

@@ -1,7 +1,7 @@
 {
   "name": "express-starter",
-  "version": "1.1.0",
-  "description": "A starter setup for Express, with PM2 support.",
+  "version": "1.2.0",
+  "description": "A starter setup for Express, with Pino logging and PM2 support.",
   "homepage": "https://github.com/steven-xie/express-starter",
   "repository": "github:steven-xie/express-starter",
   "bugs": {
@@ -11,38 +11,41 @@
   "author": "Steven Xie <hello@stevenxie.me> (https://stevenxie.me)",
   "license": "MIT",
   "config": {
-    "devDebugLevel": "server:*,express:*",
-    "prodDebugLevel": "server",
-    "reloadBrowserOnChange": true
+    "dev-log-level": "debug",
+    "prod-log-level": "error",
+    "jmespath-log-filter": "contains(name, `server`)",
+    "browser-live-reload": true
   },
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --watch 'src/**/*.ts' --watch 'dist/**/*.*' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/server.ts ",
+    "dev": "./Scripts/start-dev.sh",
     "prod": "NODE_ENV=production ts-node --transpile-only src/server.ts",
-    "start": "npm run prod",
+    "start": "npm run dev",
+    "prettier": "prettier --write 'src/**/*.ts'",
     "pm2": "pm2 startOrRestart pm2.ecosystem.config.js --env production",
     "pm2-setup": "pm2 deploy pm2.ecosystem.config.js production setup",
     "pm2-deploy": "pm2 deploy pm2.ecosystem.config.js production",
     "pm2-update": "pm2 deploy pm2.ecosystem.config.js production update",
-    "pm2-update-force": "npm run pm2-update --force",
-    "prettier": "prettier --write 'src/**/*.ts'"
+    "pm2-update-force": "npm run pm2-update --force"
   },
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "debug": "^3.1.0",
+    "body-parser": "^1.18.3",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "morgan": "^1.9.0",
+    "express-pino-logger": "^3.0.1",
+    "get-port": "^3.2.0",
     "opn": "^5.3.0",
-    "ts-node": "^6.0.0",
+    "pino": "^4.16.1",
+    "ts-node": "^6.0.3",
     "typescript": "^2.8.3"
   },
   "devDependencies": {
-    "@types/body-parser": "^1.16.8",
-    "@types/debug": "^0.0.30",
+    "@types/body-parser": "^1.17.0",
     "@types/express": "^4.11.1",
-    "@types/morgan": "^1.7.35",
-    "@types/node": "^9.6.6",
+    "@types/node": "^10.1.2",
     "@types/opn": "^5.1.0",
-    "nodemon": "^1.17.3",
+    "@types/pino": "^4.7.1",
+    "nodemon": "^1.17.4",
+    "pino-pretty": "https://github.com/pinojs/pino-pretty.git#v2.0.0-rc.1",
     "prettier": "^1.12.1"
   }
 }
