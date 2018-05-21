@@ -1,6 +1,6 @@
 {
   "name": "express-starter",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A starter setup for Express, with Pino logging and PM2 support.",
   "homepage": "https://github.com/steven-xie/express-starter",
   "repository": "github:steven-xie/express-starter",
@@ -26,14 +26,12 @@
     "pm2-deploy": "pm2 deploy pm2.ecosystem.config.js production",
     "pm2-update": "pm2 deploy pm2.ecosystem.config.js production update",
     "pm2-update-force": "npm run pm2-update --force",
-    "docker-build-dev": "./Scripts/docker-build-dev.sh",
-    "docker-build-prod": "./Scripts/docker-build-prod.sh",
-    "docker-run": "./Scripts/docker-run.sh",
-    "docker-rm": "docker rm express-starter",
-    "docker-start": "docker start express-starter",
-    "docker-stop": "docker stop express-starter",
-    "docker-exec": "docker exec express-starter",
-    "docker-bash": "docker exec -it express-starter bash"
+    "docker-build-dev": "ENV=development TAG_SUFFIX=dev docker-compose build",
+    "docker-build-prod": "ENV=production TAG_SUFFIX=prod docker-compose build",
+    "docker-up": "docker-compose up",
+    "docker-down": "docker-compose down",
+    "docker-exec": "docker-compose exec",
+    "docker-bash": "docker-compose exec express bash"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

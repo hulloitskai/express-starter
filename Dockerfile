@@ -1,7 +1,7 @@
 FROM node:9.11.1-alpine
 
 # Set labels
-LABEL version="1.0.0" maintainer="Steven Xie <dev@stevenxie.me>"
+LABEL version="1.0.1" maintainer="Steven Xie <dev@stevenxie.me>"
 
 # Create app directory
 WORKDIR /app

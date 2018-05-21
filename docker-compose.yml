@@ -1,0 +1,18 @@
+version: "3"
+services:
+
+  express:
+    build:
+      context: .
+      args:
+        - ENV
+    image: stevenxie/express-starter:v1.0.1-${TAG_SUFFIX}
+    container_name: express-starter
+    ports:
+     - "3000:3000"
+    volumes:
+     - express-vol:/app/dist
+    restart: on-failure
+
+volumes:
+  express-vol:
