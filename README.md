@@ -1,21 +1,17 @@
 # express-starter
 
-_An opinionated Typescript starter setup for [Express](https://www.expressjs.com) + [Pino](https://getpino.io). Deployable with [Docker](https://www.docker.com) and [PM2](http://pm2.keymetrics.io). Works really well with [`ng-starter`](https://github.com/steven-xie/ng-starter)!_
+*An opinionated Typescript starter setup for [Express](https://www.expressjs.com) + [Pino](https://getpino.io). Deployable with [Docker](https://www.docker.com) and [PM2](http://pm2.keymetrics.io). Works really well with [`ng-starter`](https://github.com/steven-xie/ng-starter)!*
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![type definitions: Typescript](https://img.shields.io/badge/type%20definitions-Typescript-blue.svg)](https://www.typescriptlang.org) [![docker hub: available](https://img.shields.io/badge/docker%20hub-available-008bb8.svg)](https://hub.docker.com/r/stevenxie/express-starter/)
 
-This project is formatted with [Prettier](https://prettier.io), and compiles Typescript on-the-fly with [`ts-node`](https://github.com/TypeStrong/ts-node) (which actually has [_very little overhead_](https://www.bennadel.com/blog/3268-experimenting-with-ts-node-and-using-typescript-in-node-js-on-the-server.htm), and is [_usable in production_](https://github.com/TypeStrong/ts-node/issues/104#issuecomment-250252708)).
+This project is formatted with [Prettier](https://prettier.io), and compiles Typescript on-the-fly with [`ts-node`](https://github.com/TypeStrong/ts-node) (which actually has [*very little overhead*](https://www.bennadel.com/blog/3268-experimenting-with-ts-node-and-using-typescript-in-node-js-on-the-server.htm), and is [*usable in production*](https://github.com/TypeStrong/ts-node/issues/104#issuecomment-250252708)).
 
 **Disable automatic TypeScript compilation in your IDE for this project; [`ts-node`](https://github.com/TypeStrong/ts-node) will take care of it.**
 
 ## Installation:
 
 ```bash
-# If using Yarn:
-yarn install
-
-# If using NPM:
-npm install
+# If using Yarn: yarn install # If using NPM: npm install
 ```
 
 ## Usage
@@ -24,9 +20,11 @@ npm install
 
 ```bash
 # If using Yarn:
-yarn dev # starts a dev server with hot-reloading and detailed debugging.
-yarn prod # starts a production server with minimal debugging and no hot-reloading.
-yarn start # same as yarn prod
+yarn dev    # starts a dev server with hot-reloading
+            # and detailed debugging.
+yarn prod   # starts a production server with minimal
+            # debugging and no hot-reloading.  
+yarn start  # same as yarn prod
 
 # If using NPM, replace 'yarn ...' with 'npm run ...' for each command.
 ```
@@ -57,17 +55,17 @@ After that, every time you want to update to the latest Git commit, just run `ya
 
 ### Setup
 
-_Method 1: Building an image from scratch._
+_**Method 1:** Building an image from scratch._
+
+First, edit `package.json`'s *config* section:
+* Set `docker-env` to one of *"production"*, *"development"* (this affects the installed dependencies, and whether `express-starter` runs in development / production mode).
+* Set `docker-tag` to a pattern that matches *"#.#.#-prod"* or *"#.#.#-dev"* (this affects the tag of the build *docker image*, and sets the image "version" label in the *Dockerfile*).
 
 ```bash
-# Development
-yarn docker-build-dev
-
-# Production
-yarn docker-build-prod
+yarn docker-build
 ```
 
-_Method 2: Pulling an image from Docker Hub:_
+_**Method 2:** Pulling an image from Docker Hub:_
 
 ```bash
 docker pull stevenxie/express-starter

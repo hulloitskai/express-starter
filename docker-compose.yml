@@ -1,12 +1,15 @@
-version: "3"
-services:
+# docker-compose
 
+version: "3"
+
+services:
   express:
     build:
       context: .
       args:
-        - ENV
-    image: stevenxie/express-starter:v1.0.1-${TAG_SUFFIX}
+        - ENV=${npm_package_config_docker_env}
+        - VERSION=${npm_package_config_docker_tag}
+    image: stevenxie/express-starter:${npm_package_config_docker_tag}
     container_name: express-starter
     ports:
      - "3000:3000"

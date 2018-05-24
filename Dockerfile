@@ -1,7 +1,8 @@
 FROM node:9.11.1-alpine
 
 # Set labels
-LABEL version="1.0.1" maintainer="Steven Xie <dev@stevenxie.me>"
+ARG VERSION="latest"
+LABEL version=$VERSION maintainer="Steven Xie <dev@stevenxie.me>"
 
 # Create app directory
 WORKDIR /app
@@ -11,8 +12,6 @@ COPY . .
 
 # If 'ENV' build arg is available, use it here
 ARG ENV="production"
-
-# Set environment variables
 ENV NODE_ENV=$ENV IS_DOCKER=true
 
 # Install git, bash, and package dependencies
