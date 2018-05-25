@@ -11,7 +11,11 @@ This project is formatted with [Prettier](https://prettier.io), and compiles Typ
 ## Installation:
 
 ```bash
-# If using Yarn: yarn install # If using NPM: npm install
+# If using Yarn:
+# yarn install
+
+# If using NPM:
+npm install
 ```
 
 ## Usage
@@ -26,7 +30,8 @@ yarn prod   # starts a production server with minimal
             # debugging and no hot-reloading.  
 yarn start  # same as yarn prod
 
-# If using NPM, replace 'yarn ...' with 'npm run ...' for each command.
+# If using NPM, replace 'yarn ...' with 
+#   'npm run ...' for each command.
 ```
 
 ### Default Endpoints:
@@ -58,7 +63,7 @@ After that, every time you want to update to the latest Git commit, just run `ya
 _**Method 1:** Building an image from scratch._
 
 First, edit `package.json`'s *config* section:
-* Set `docker-env` to one of *"production"*, *"development"* (this affects the installed dependencies, and whether `express-starter` runs in development / production mode).
+* Set `docker-build-env` to one of *"production"*, *"development"* (this affects the installed dependencies, and whether `express-starter` runs in development / production mode).
 * Set `docker-tag` to a pattern that matches *"#.#.#-prod"* or *"#.#.#-dev"* (this affects the tag of the build *docker image*, and sets the image "version" label in the *Dockerfile*).
 
 ```bash
@@ -71,19 +76,23 @@ _**Method 2:** Pulling an image from Docker Hub:_
 docker pull stevenxie/express-starter
 ```
 
-Then, run a container (which is configured to expose port _3000_, and named `express-starter`). This instantiates it from an image (and should only be run once).
+Then, start a container from Docker Compose (which is configured to expose port _3000_, and named `express-starter`, and mount a volume named `express-vol`). If no image has been built, it will also build an image before starting a container from it. *Make sure you have Docker Compose installed, or look up how to manually configure a built with `docker build`!*
 
 ```bash
-yarn docker-run
+# To see output inline
+yarn docker-inline
+
+# To run in the background
+yarn docker-up
 ```
 
 ### Regular usage
 
-To stop the container, run `yarn docker-stop`, and to run it again, run `yarn docker-run`. There's no need to perform `doccker-run` after the initial container instantiation.
+To stop the container, run `yarn docker-stop`, and to run it again, run `yarn docker-start`. The container can also be paused with `yarn docker-pause`.
 
-To remove the container entirely, run `yarn docker-rm`.
+To remove the container entirely, run `yarn docker-down`.
 
-### Accessing Volumes
+### Accessing Volumes on Mac OS X
 
 If you're on a Mac, you won't be able to access the `express-vol` Docker volume directly through the filesystem: You have to access it through Docker's VM as follows:
 
@@ -105,6 +114,11 @@ cd /var/lib/docker/volumes
 * `prod-log-level` – logging level for when the server is started in production mode _(default: `error`)_.
 * `jmespath-log-filter` – the filter to be applied to the console output logs during development. Uses the [JMESPath query language](http://jmespath.org). To show all output, use: `*`. _(default: `` contains(name, `server`) ``)_
 * `browser-live-reload` – whether or not you would like the _browser_ to reload when you save your code. Useful if you're making visual changes. (The server itself will always live-reload to reflect new changes). _(default: `true`)_
+* `docker-build-env` – the Node environment that Docker will package for when building an image. Should be one of *"production"*, *"development"*. Docker will not package *devDependencies* as part of the build process when this is set to *"production"*.
+* `docker-tag` – the version tag that Docker will label the image with during the build process. Conventionally follows the pattern of *"#.#.#-(ENV NAME)"*.
+
+### `docker-compose.yml`:
+The `services → express → environment` section can be configured with environment variables like `NODE_ENV`, `LOG_LEVEL`, and `LOG_FILTER`, which will override related settings in the NPM package configuration.
 
 ### `pm2.ecosystem.config.js`
 

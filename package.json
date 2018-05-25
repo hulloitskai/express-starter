@@ -1,6 +1,6 @@
 {
   "name": "express-starter",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "A starter setup for Express, with Pino logging and PM2 support.",
   "homepage": "https://github.com/steven-xie/express-starter",
   "repository": "github:steven-xie/express-starter",
@@ -15,8 +15,8 @@
     "prod-log-level": "error",
     "jmespath-log-filter": "contains(name, `server`)",
     "browser-live-reload": true,
-    "docker-env": "production",
-    "docker-tag": "1.0.1-prod"
+    "docker-build-env": "production",
+    "docker-tag": "1.0.2-prod"
   },
   "scripts": {
     "dev": "./Scripts/dev.sh",
@@ -29,13 +29,18 @@
     "pm2-update": "pm2 deploy pm2.ecosystem.config.js production update",
     "pm2-update-force": "npm run pm2-update --force",
     "docker-build": "docker-compose build",
-    "docker-start": "docker-compose up",
-    "docker-up": "yarn docker-start -d",
+    "docker-inline": "docker-compose up",
+    "docker-up": "docker-compose up -d",
     "docker-down": "docker-compose down --volumes",
+    "docker-start": "docker-compose start express",
+    "docker-stop": "docker-compose stop express",
     "docker-pause": "docker-compose pause",
+    "docker-ps": "docker-compose ps",
     "docker-exec": "docker-compose exec",
-    "docker-sh": "docker-compose exec express sh",
-    "docker-purge": "yarn docker-down --rmi all"
+    "docker-sh": "npm run docker-exec express sh",
+    "docker-logs": "docker-compose logs express",
+    "docker-inspect": "docker inspect express-starter",
+    "docker-purge": "npm run docker-down -- --rmi all"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

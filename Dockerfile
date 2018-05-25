@@ -12,14 +12,14 @@ WORKDIR /app
 # Bundle app source
 COPY . .
 
-# If 'ENV' build arg is available, use it here
-ARG ENV="production"
-ENV NODE_ENV=$ENV IS_DOCKER=true
+# If 'BUILD_ENV' build arg is available, use it here
+ARG BUILD_ENV="production"
+ENV NODE_ENV=$BUILD_ENV IS_DOCKER=true
 
 # Install git, bash, and package dependencies
 RUN apk update && apk upgrade && \
     apk add --no-cache bash git && \
-    if [ "$ENV" == "development" ]; \
+    if [ "$BUILD_ENV" == "development" ]; \
     then yarn install; \
     else yarn install --production; \
     fi
