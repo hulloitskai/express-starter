@@ -12,9 +12,9 @@ services:
     image: stevenxie/express-starter:${npm_package_config_docker_tag}
     container_name: express-starter
     ports:
-     - "3000:3000"
+      - "3000:3000"
     volumes:
-     - express-vol:/app/dist
+      - express-vol:/app/dist
     restart: on-failure
 
 volumes:
