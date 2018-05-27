@@ -9,7 +9,7 @@
     "email": "dev@stevenxie.me"
   },
   "author": "Steven Xie <hello@stevenxie.me> (https://stevenxie.me)",
-  "license": "MIT",
+  "license": "AAL",
   "config": {
     "dev-log-level": "debug",
     "prod-log-level": "error",
@@ -19,7 +19,7 @@
     "docker-tag": "1.0.2-prod"
   },
   "scripts": {
-    "dev": "./Scripts/dev.sh",
+    "dev": "./scripts/dev.sh",
     "prod": "NODE_ENV=production ts-node --transpile-only src/server.ts",
     "start": "if [ \"$NODE_ENV\" == \"production\" ]; then npm run prod; else npm run dev; fi",
     "prettier": "prettier --write 'src/**/*.ts'",
@@ -28,19 +28,20 @@
     "pm2-deploy": "pm2 deploy pm2.ecosystem.config.js production",
     "pm2-update": "pm2 deploy pm2.ecosystem.config.js production update",
     "pm2-update-force": "npm run pm2-update --force",
-    "docker-build": "docker-compose build",
-    "docker-inline": "docker-compose up",
-    "docker-up": "docker-compose up -d",
-    "docker-down": "docker-compose down --volumes",
-    "docker-start": "docker-compose start express",
-    "docker-stop": "docker-compose stop express",
-    "docker-pause": "docker-compose pause",
-    "docker-ps": "docker-compose ps",
-    "docker-exec": "docker-compose exec",
-    "docker-sh": "npm run docker-exec express sh",
-    "docker-logs": "docker-compose logs express",
-    "docker-inspect": "docker inspect express-starter",
-    "docker-purge": "npm run docker-down -- --rmi all"
+    "dk-build": "docker-compose build",
+    "dk-foreground": "docker-compose up",
+    "dk-up": "docker-compose up -d",
+    "dk-down": "docker-compose down --volumes",
+    "dk-start": "docker-compose start express",
+    "dk-stop": "docker-compose stop express",
+    "dk-restart": "docker-compose restart express",
+    "dk-pause": "docker-compose pause",
+    "dk-exec": "docker-compose exec",
+    "dk-sh": "npm run docker-exec express sh",
+    "dk-ps": "docker-compose ps",
+    "dk-logs": "docker-compose logs express",
+    "dk-inspect": "docker inspect express-starter",
+    "dk-purge": "npm run docker-down -- --rmi all --remove-orphans"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
