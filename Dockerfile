@@ -17,7 +17,7 @@ ARG BUILD_ENV="production"
 ENV NODE_ENV=$BUILD_ENV IS_DOCKER=true
 
 # Install git, bash, and package dependencies
-RUN apk update && apk upgrade && \
+RUN apk update && \
     apk add --no-cache bash git && \
     if [ "$BUILD_ENV" == "development" ]; \
     then yarn install; \

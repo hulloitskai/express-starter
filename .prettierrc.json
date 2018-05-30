@@ -1,8 +1,9 @@
 {
-  "printWidth": 90,
-  "singleQuote": true,
-  "useTabs": false,
-  "tabWidth": 2,
-  "semi": true,
-  "bracketSpacing": true
+	"semi": true,
+	"bracketSpacing": true,
+	"singleQuote": true,
+	"useTabs": false,
+	"tabWidth": 2,
+	"printWidth": 90,
+	"proseWrap": "preserve"
 }

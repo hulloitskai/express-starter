@@ -7,6 +7,6 @@ insert_final_newline = true
 [*.{js,jsx,ts,tsx}]
 charset = utf-8
 
-[{*.{ts,tsx}, package.json, travis.yml, Dockerfile, *.{sh}}]
+[{*.{ts,tsx}, *.json, *.{yml, yaml}, Dockerfile, *.sh}}]
 indent_style = space
 indent_size = 2

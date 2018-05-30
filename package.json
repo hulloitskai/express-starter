@@ -1,7 +1,7 @@
 {
   "name": "express-starter",
-  "version": "1.3.4",
-  "description": "A starter setup for Express, with Pino logging and PM2 support.",
+  "version": "1.3.5",
+  "description": "An opinionated Typescript starter setup for Express + Pino.",
   "homepage": "https://github.com/steven-xie/express-starter",
   "repository": "github:steven-xie/express-starter",
   "bugs": {
@@ -16,7 +16,7 @@
     "jmespath-log-filter": "contains(name, `server`)",
     "browser-live-reload": true,
     "docker-build-env": "production",
-    "docker-tag": "1.0.2-prod"
+    "docker-tag": "1.0.3-prod"
   },
   "scripts": {
     "dev": "./scripts/dev.sh",
@@ -37,11 +37,11 @@
     "dk-restart": "docker-compose restart express",
     "dk-pause": "docker-compose pause",
     "dk-exec": "docker-compose exec",
-    "dk-sh": "npm run docker-exec express sh",
+    "dk-sh": "npm run dk-exec express sh",
     "dk-ps": "docker-compose ps",
     "dk-logs": "docker-compose logs express",
     "dk-inspect": "docker inspect express-starter",
-    "dk-purge": "npm run docker-down -- --rmi all --remove-orphans"
+    "dk-purge": "npm run dk-down -- --rmi all --remove-orphans"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -50,18 +50,18 @@
     "express-pino-logger": "^3.0.1",
     "get-port": "^3.2.0",
     "opn": "^5.3.0",
-    "pino": "^4.16.1",
-    "ts-node": "^6.0.3",
+    "pino": "^4.17.1",
+    "ts-node": "^6.0.5",
     "typescript": "^2.8.3"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
     "@types/express": "^4.11.1",
-    "@types/node": "^10.1.2",
+    "@types/node": "^10.1.4",
     "@types/opn": "^5.1.0",
-    "@types/pino": "^4.7.1",
-    "nodemon": "^1.17.4",
+    "@types/pino": "^4.16.0",
+    "nodemon": "^1.17.5",
     "pino-pretty": "https://github.com/pinojs/pino-pretty.git#v2.0.0-rc.1",
-    "prettier": "^1.12.1"
+    "prettier": "^1.13.2"
   }
 }
