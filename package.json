@@ -1,6 +1,6 @@
 {
   "name": "express-starter",
-  "version": "1.3.5",
+  "version": "1.4.0",
   "description": "An opinionated Typescript starter setup for Express + Pino.",
   "homepage": "https://github.com/steven-xie/express-starter",
   "repository": "github:steven-xie/express-starter",
@@ -15,8 +15,8 @@
     "prod-log-level": "error",
     "jmespath-log-filter": "contains(name, `server`)",
     "browser-live-reload": true,
-    "docker-build-env": "production",
-    "docker-tag": "1.0.3-prod"
+    "docker-build-env": "development",
+    "docker-tag": "1.1.0-dev"
   },
   "scripts": {
     "dev": "./scripts/dev.sh",

@@ -1,6 +1,6 @@
 # dockerfile
 
-FROM node:9.11.1-alpine
+FROM node:10.2.1-alpine
 
 # Set labels
 ARG VERSION="latest"
