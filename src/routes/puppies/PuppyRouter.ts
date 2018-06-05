@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 
-import { puppiesLogger as logger, sendPrettyJSON, CustomRouter } from './imports';
+import {
+  puppiesLogger as logger,
+  sendPrettyJSON,
+  CustomRouter
+} from './imports';
 
 class PuppyRouter extends CustomRouter {
   private hitCount = 0;

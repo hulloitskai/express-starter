@@ -1,18 +1,19 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "typeRoots": ["node_modules/@types", "./typings"],
+    "typeRoots": ["node_modules/@types", "typings"],
     "module": "commonjs",
-    "lib": ["ESNEXT"],
+    "lib": ["es2018"],
     "moduleResolution": "node",
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
     "allowJs": false,
-    "sourceMap": true,
+    "sourceMap": false,
     "inlineSources": true,
-    "removeComments": true,
     "noImplicitAny": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
     "noImplicitReturns": true,
     "allowSyntheticDefaultImports": false
   },
