@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 ## Configurations
 SERVER_DIR="build/server.js"
@@ -11,7 +11,7 @@ export NODE_ENV=development
 
 ## Log all output if undefined or null log filter
 if [ -n "$LOG_FILTER" ] && [ "$LOG_FILTER" != "null" ]
-then echo "logging with the JMESPath query filter: $LOG_FILTER"
+then echo "Logging with the JMESPath query filter: $LOG_FILTER"
 else LOG_FILTER="*"
 fi
 

@@ -1,13 +1,16 @@
 # docker-compose
 
-version: "3"
+version: "3.4"
 
 services:
   express:
     build:
       context: .
+      cache_from:
+        - node:${npm_package_config_docker_node_version}-alpine
+      target: ${npm_package_config_docker_build_env}
       args:
-        - BUILD_ENV=${npm_package_config_docker_build_env}
+        - NODE_VERSION=${npm_package_config_docker_node_version}
         - VERSION=${npm_package_config_docker_tag}
     # environment:
       # - NODE_ENV=... (useful if you want to set BUILD_ENV="development" to include
