@@ -4,11 +4,12 @@ import * as bodyParser from 'body-parser';
 
 import { apiRouter } from './routes';
 import { expressLogger } from './imports';
+type Application = express.Application;
 
 /// Creates and configures an Express web server.
 class App {
   /// Express app instance
-  public instance: express.Application;
+  public instance: Application;
 
   /// Configure Express instance
   constructor() {
@@ -32,16 +33,20 @@ class App {
 
   /// Configure API endpoints
   private routes() {
-    const distDir = path.join(__dirname, '..', 'dist');
-    const index = path.resolve(distDir, 'index.html');
+    const staticDir = path.join(__dirname, '..', 'static');
+    const indexDir = path.resolve(staticDir, 'index.html');
 
     // Configure API route
     this.instance.use('/api', apiRouter);
 
-    // Configure to serve index and assets as a fallback mechanism
-    this.instance.get('/', (req, res) => res.sendFile(index));
-    this.instance.use(express.static(distDir));
+    // Configure to serve index and assets from static as a fallback mechanism
+    this.instance.get('/', (req, res) => res.sendFile(indexDir));
+    this.instance.use(express.static(staticDir));
+  }
+
+  export(): Application {
+    return this.instance;
   }
 }
 
-export default new App().instance;
+export default App;

@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
+    "lib": ["es2018"],
     "target": "es6",
-    "typeRoots": ["node_modules/@types", "./typings"],
     "module": "commonjs",
-    "lib": ["ESNEXT"],
     "moduleResolution": "node",
-    "outDir": "dist",
+    "typeRoots": ["node_modules/@types", "typings"],
     "rootDir": "src",
+    "outDir": "build",
     "strict": true,
     "allowJs": false,
-    "sourceMap": true,
-    "inlineSources": true,
+    "sourceMap": false,
+    "inlineSources": false,
     "removeComments": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
-    "allowSyntheticDefaultImports": false
+    "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"],

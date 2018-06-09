@@ -5,4 +5,4 @@ import { pino } from './config';
 const { serverLogger, expressLogger } = pino;
 
 // Re-exports
-export { serverLogger, routing, utils, expressLogger };
+export { routing, utils, serverLogger, expressLogger };
