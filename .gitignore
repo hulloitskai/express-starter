@@ -1,8 +1,5 @@
 ## Compiled output
-# /dist
-/dist-server
-/tmp
-/out-tsc
+/build/
 
 ## Node dependencies
 /node_modules
