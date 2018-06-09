@@ -1,6 +1,6 @@
 {
   "name": "express-starter",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "An opinionated Typescript starter setup for Express + Pino.",
   "homepage": "https://github.com/steven-xie/express-starter",
   "repository": "github:steven-xie/express-starter",
@@ -14,14 +14,19 @@
     "dev-log-level": "debug",
     "prod-log-level": "error",
     "jmespath-log-filter": "contains(name, `server`)",
-    "browser-live-reload": true,
+    "browser-live-reload": false,
     "docker-build-env": "development",
-    "docker-tag": "1.1.0-dev"
+    "docker-tag": "1.2.0-dev",
+    "docker-node-version": "10.4.0"
   },
   "scripts": {
     "dev": "./scripts/dev.sh",
-    "prod": "NODE_ENV=production ts-node --transpile-only src/server.ts",
-    "start": "if [ \"$NODE_ENV\" == \"production\" ]; then npm run prod; else npm run dev; fi",
+    "prod": "./scripts/prod.sh",
+    "start": "[ '$NODE_ENV' == production ] && npm run prod || npm run dev",
+    "build": "[ -d build ] && npm run clean; npm run compile",
+    "compile": "tsc --project tsconfig.json",
+    "compile-watch": "npm run compile -- --watch",
+    "clean": "rimraf build",
     "prettier": "prettier --write 'src/**/*.ts'",
     "pm2": "pm2 startOrRestart pm2.ecosystem.config.js --env production",
     "pm2-setup": "pm2 deploy pm2.ecosystem.config.js production setup",
@@ -45,23 +50,24 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "dotenv": "^5.0.1",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-pino-logger": "^3.0.1",
     "get-port": "^3.2.0",
     "opn": "^5.3.0",
-    "pino": "^4.17.1",
-    "ts-node": "^6.0.5",
-    "typescript": "^2.8.3"
+    "pino": "^4.17.3"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
-    "@types/express": "^4.11.1",
-    "@types/node": "^10.1.4",
+    "@types/express": "^4.16.0",
+    "@types/node": "^10.3.2",
     "@types/opn": "^5.1.0",
     "@types/pino": "^4.16.0",
+    "concurrently": "^3.5.1",
     "nodemon": "^1.17.5",
-    "pino-pretty": "https://github.com/pinojs/pino-pretty.git#v2.0.0-rc.1",
-    "prettier": "^1.13.2"
+    "pino-pretty": "^1.0.1",
+    "prettier": "https://github.com/pinojs/pino-pretty.git#v2.0.0-rc.1",
+    "rimraf": "^2.6.2",
+    "typescript": "^2.9.1"
   }
 }

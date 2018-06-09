@@ -1,29 +1,45 @@
 import * as http from 'http';
-import * as getPort from 'get-port';
+import * as _getPort from 'get-port';
 import * as dotenv from 'dotenv';
 import { Application } from 'express';
 
 import App from './App';
 import { serverLogger as logger } from './imports';
 import opn = require('opn');
-import ErrnoException = NodeJS.ErrnoException;
+type ErrnoException = NodeJS.ErrnoException;
 
 dotenv.load(); // Load .env variables
 
-start(App);
+// Start application
+const app = new App().export();
+start(app);
 
-async function start(app: Application) {
-  // Set the listening port
+// Main thread logic
+function start(app: Application) {
+  try {
+    getPort().then(listenOnPort);
+  } catch (e) {
+    logger.fatal(`An unknown fatal error occurred: ${e}`);
+    process.exit(1);
+  }
+}
+
+async function getPort() {
   const DEFAULT_PORT = 3000;
-  const port = await getPort(process.env.PORT || DEFAULT_PORT);
+  return await _getPort(process.env.PORT || DEFAULT_PORT);
+}
+
+function listenOnPort(port) {
+  // Set the listening port
   const bind = `port ${port}`;
 
-  // Serve the app using `http`...
+  // Serve the app using `http`
   const server = http.createServer(app);
   server.listen(port);
-  server.on('error', onError);
   server.on('listening', onListening);
+  server.on('error', onError);
 
+  // Runs upon successful listen
   function onListening() {
     logger.info('listening on %s', bind);
 
@@ -31,15 +47,20 @@ async function start(app: Application) {
     const {
       NODE_ENV,
       IS_DOCKER,
-      npm_package_config_browser_live_reload: liveReload
+      npm_package_config_browser_live_reload: LIVE_RELOAD
     } = process.env;
-    if (NODE_ENV === 'development' && liveReload && !IS_DOCKER) {
+    if (
+      NODE_ENV === 'development' &&
+      LIVE_RELOAD === 'true' &&
+      IS_DOCKER !== 'true'
+    ) {
       opn(`http://127.0.0.1:${port}`).catch((err: Error) =>
         logger.warn('could not open in browser: %O', err)
       );
     }
   }
 
+  // Runs upon server failure
   function onError(error: ErrnoException) {
     // Only handling 'listen' errors!
     if (error.syscall !== 'listen') throw error;
@@ -56,6 +77,6 @@ async function start(app: Application) {
     }
 
     logger.fatal('exiting due to critical error...');
-    process.exit(1);
+    process.exit(2);
   }
 }

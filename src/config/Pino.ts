@@ -8,8 +8,12 @@ const {
   NODE_ENV
 } = process.env;
 
-const level =
-  ENV_LOG_LEVEL || NODE_ENV === 'development' ? DEV_LOG_LEVEL : PROD_LOG_LEVEL;
+
+// prettier-ignore
+const level = ENV_LOG_LEVEL || NODE_ENV === 'development'
+  ? DEV_LOG_LEVEL
+  : PROD_LOG_LEVEL;
+
 const serverLogger = pino({ name: 'server', level });
 const expressLogger = pinoExpress({ name: 'express', level });
 
