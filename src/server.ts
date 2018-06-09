@@ -8,13 +8,12 @@ import { serverLogger as logger } from './imports';
 import opn = require('opn');
 type ErrnoException = NodeJS.ErrnoException;
 
-dotenv.load(); // Load .env variables
+dotenv.load();  // Load .env variables
 
-// Start application
-const app = new App().export();
+const app = new App().export();  // Start application
 start(app);
 
-// Main thread logic
+/** Main thread logic. */
 function start(app: Application) {
   try {
     getPort().then(listenOnPort);
@@ -24,22 +23,22 @@ function start(app: Application) {
   }
 }
 
+/** Get the port using `get-port`. */
 async function getPort() {
   const DEFAULT_PORT = 3000;
   return await _getPort(process.env.PORT || DEFAULT_PORT);
 }
 
+/** Configure the Express server to listen on the specified port. */
 function listenOnPort(port) {
-  // Set the listening port
-  const bind = `port ${port}`;
+  const bind = `port ${port}`;  // Set the listening port
 
-  // Serve the app using `http`
-  const server = http.createServer(app);
+  const server = http.createServer(app);  // Serve the app using `http` 
   server.listen(port);
   server.on('listening', onListening);
   server.on('error', onError);
 
-  // Runs upon successful listen
+  /** Runs upon successful listen */
   function onListening() {
     logger.info('listening on %s', bind);
 
@@ -60,7 +59,7 @@ function listenOnPort(port) {
     }
   }
 
-  // Runs upon server failure
+  /** Runs upon server failure */
   function onError(error: ErrnoException) {
     // Only handling 'listen' errors!
     if (error.syscall !== 'listen') throw error;

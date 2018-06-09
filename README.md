@@ -8,7 +8,7 @@
 
 ```bash
 # If using Yarn:
-# yarn install
+yarn install
 
 # If using NPM:
 npm install

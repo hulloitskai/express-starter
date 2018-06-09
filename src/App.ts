@@ -8,10 +8,10 @@ type Application = express.Application;
 
 /// Creates and configures an Express web server.
 class App {
-  /// Express app instance
+  /** Express app instance */
   public instance: Application;
 
-  /// Configure Express instance
+  /** Configure Express instance */
   constructor() {
     this.instance = express();
     this.setup();
@@ -19,19 +19,19 @@ class App {
     this.routes();
   }
 
-  /// Configure Express settings
+  /** Configure Express settings */
   private setup() {
     this.instance.set('trust proxy', 'loopback');
   }
 
-  /// Configure Express middleware
+  /** Configure Express middleware */
   private middlewares() {
     this.instance.use(expressLogger);
     this.instance.use('/api/**/*', bodyParser.json());
     this.instance.use('/api/**/*', bodyParser.urlencoded({ extended: false }));
   }
 
-  /// Configure API endpoints
+  /** Configure API endpoints */
   private routes() {
     const staticDir = path.join(__dirname, '..', 'static');
     const indexDir = path.resolve(staticDir, 'index.html');
@@ -44,9 +44,8 @@ class App {
     this.instance.use(express.static(staticDir));
   }
 
-  export(): Application {
-    return this.instance;
-  }
+  /** Exports the App's internal Express instance */
+  export = (): Application => this.instance
 }
 
 export default App;
