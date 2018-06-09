@@ -44,7 +44,6 @@ yarn start  # selects 'yarn dev' or 'yarn prod' based
 To launch on a server with [PM2](http://pm2.keymetrics.io) installed globally,
 run with `yarn pm2` or `npm run pm2`. This will allow you to monitor the status
 of the server, and auto-restart it if it crashes.
-**PM2 must have Typescript installed: `pm2 install typescript`.**
 
 #### Using auto-deployment:
 
