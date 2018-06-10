@@ -13,7 +13,7 @@ if [ -z "$IMAGE_VERSION" ]; then
   IMAGE_VERSION="$npm_package_config_docker_image_version"
   if [ -z "$IMAGE_VERSION" ]; then
     echo "Could not identify Docker image version number \
-          for tagging and labelling purposes."
+for tagging and labelling purposes."
     exit 2
   fi
 fi
@@ -33,7 +33,7 @@ export BUILD_ENV="$1"
 
 ## Initiate build
 echo "Building Docker image with BUILD_ENV=$BUILD_ENV \
-      and BUILD_TAG=$BUILD_TAG..."
+and BUILD_TAG=$BUILD_TAG..."
 docker-compose build
 
 ## Save build config in .env for future use

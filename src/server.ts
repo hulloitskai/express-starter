@@ -8,9 +8,9 @@ import { serverLogger as logger } from './imports';
 import opn = require('opn');
 type ErrnoException = NodeJS.ErrnoException;
 
-dotenv.load();  // Load .env variables
+dotenv.load(); // Load .env variables
 
-const app = new App().export();  // Start application
+const app = new App().export(); // Start application
 start(app);
 
 /** Main thread logic. */
@@ -31,9 +31,9 @@ async function getPort() {
 
 /** Configure the Express server to listen on the specified port. */
 function listenOnPort(port) {
-  const bind = `port ${port}`;  // Set the listening port
+  const bind = `port ${port}`; // Set the listening port
 
-  const server = http.createServer(app);  // Serve the app using `http` 
+  const server = http.createServer(app); // Serve the app using `http`
   server.listen(port);
   server.on('listening', onListening);
   server.on('error', onError);
