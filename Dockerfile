@@ -17,18 +17,20 @@ COPY . .
 # If 'BUILD_ENV' build arg is available, use it here
 ARG BUILD_ENV="development"
 
-# Install git, bash, package dependencies. If constructing a production build,
-#   precompile the Javascript, remove 'src/', and reinstall only production
-#   dependencies. 
+# Install Linux dependencies
 RUN echo "Building with BUILD_ENV: '$BUILD_ENV'" && \
-    apk update && apk add --no-cache git && yarn && \
-    if [ "$BUILD_ENV" == production ]; then \
-      echo "Precompiling to Javascript for production..." && \
-      yarn compile && yarn --production --prefer-offline && \
-      rm -rf src/; \
-    else \
-      yarn cache clean; \
-    fi
+    apk update && apk add --no-cache git
+
+# Install app dependencies; also, if constructing a production build,
+#   precompile the Javascript, remove 'src/', and reinstall only production
+#   dependencies
+RUN yarn && if [ "$BUILD_ENV" == production ]; then \
+              echo "Precompiling to Javascript for production..." && \
+              yarn compile && yarn --production --prefer-offline && \
+              rm -rf src/; \
+            else \
+              yarn cache clean; \
+            fi
 
 # Configure environment variables
 ENV NODE_ENV=$BUILD_ENV IS_DOCKER=true

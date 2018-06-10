@@ -1,0 +1,4 @@
+#!/bin/bash
+
+## Build Docker image
+docker build --build-arg BUILD_ENV="$BUILD_ENV" VERSION="$VERSION"
