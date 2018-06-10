@@ -20,7 +20,8 @@ ARG BUILD_ENV="development"
 # Install git, bash, package dependencies. If constructing a production build,
 #   precompile the Javascript, remove 'src/', and reinstall only production
 #   dependencies. 
-RUN apk update && apk add --no-cache git && yarn && \
+RUN echo "Building with BUILD_ENV: '$BUILD_ENV'" && \
+    apk update && apk add --no-cache git && yarn && \
     if [ "$BUILD_ENV" == production ]; then \
       echo "Precompiling to Javascript for production..." && \
       yarn compile && yarn --production --prefer-offline && \
