@@ -72,17 +72,28 @@ then it is necessary to run `yarn pm2-update-force` instead.
 _**Method 1:** Building an image from scratch._
 
 First, edit `package.json`'s *config* section:
-* Set `docker-build-env` to one of *"production"*, *"development"* (this affects
-  the installed dependencies, and whether `express-starter` runs in development
-  / production mode).
-* Set `docker-tag` to a pattern that matches *"#.#.#-prod"* or *"#.#.#-dev"*
-  (this affects the tag of the build *docker image*, and sets the image
-  "version" label in the *Dockerfile*).
+* Set `docker-image-version` to a pattern that matches *"#.#.#"* (typically
+  using [semver](https://semver.org) versioning). This affects the tag of the
+  built *docker image* (which will look something along the lines of
+  *#.#.#-prod* or *#.#.#-dev*), and also sets the image "version" label.
+
+Now, decide whether you want to build for *production* or *development* (this
+affects the installed dependencies, and whether `express-starter` runs in
+development / production mode), and run the associated command:
 
 ```bash
 # dk = docker
-yarn dk-build
+
+## For a production build:
+yarn dk-build-prod
+yarn dk-build  # An alias for dk-build-prod
+
+## For a development build:
+yarn dk-build-dev
 ```
+
+Once you build a version, the `.env` file will be populated with the build
+configuration (i.e. BUILD_ENV and BUILD_TAG). 
 
 _**Method 2:** Pulling an image from Docker Hub:_
 
@@ -110,6 +121,10 @@ To stop the container, run `yarn dk-stop`, and to run it again, run
 `yarn dk-start`. The container can also be paused with `yarn dk-pause`.
 
 To remove the container entirely, run `yarn dk-down`.
+
+If you have multiple environments / tags, you can have the `Yarn dk-...` scripts
+target a different image by editing the `.env` file with the correct `BUILD_ENV`
+and `BUILD_TAG`.
 
 ### Accessing Volumes on Mac OS X
 

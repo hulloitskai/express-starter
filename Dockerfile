@@ -7,30 +7,28 @@
 FROM node:10.4.0-alpine AS development
 
 # Set labels
-ARG VERSION="latest"
-LABEL version=$VERSION maintainer="Steven Xie <dev@stevenxie.me>"
+ARG BUILD_TAG="latest"
+LABEL version=$BUILD_TAG maintainer="Steven Xie <dev@stevenxie.me>"
 
 # Create app directory and bundle app source
 WORKDIR /app
 COPY . .
 
+# Install Linux dependencies
+RUN apk update && apk add --no-cache git
+
 # If 'BUILD_ENV' build arg is available, use it here
 ARG BUILD_ENV="development"
-
-# Install Linux dependencies
-RUN echo "Building with BUILD_ENV: '$BUILD_ENV'" && \
-    apk update && apk add --no-cache git
 
 # Install app dependencies; also, if constructing a production build,
 #   precompile the Javascript, remove 'src/', and reinstall only production
 #   dependencies
-RUN yarn && if [ "$BUILD_ENV" == production ]; then \
-              echo "Precompiling to Javascript for production..." && \
-              yarn compile && yarn --production --prefer-offline && \
-              rm -rf src/; \
-            else \
-              yarn cache clean; \
-            fi
+RUN echo "Building with BUILD_ENV: $BUILD_ENV" && yarn && \
+    if [ "$BUILD_ENV" == production ]; then \
+      echo "Precompiling to Javascript for production..." && \
+      yarn compile && yarn --production --prefer-offline && \
+      rm -rf src/; \
+    else yarn cache clean; fi
 
 # Configure environment variables
 ENV NODE_ENV=$BUILD_ENV IS_DOCKER=true

@@ -14,8 +14,7 @@
     "prod-log-level": "error",
     "jmespath-log-filter": "contains(name, `server`)",
     "browser-live-reload": false,
-    "docker-build-env": "development",
-    "docker-tag": "1.2.3-dev"
+    "docker-image-version": "1.2.3"
   },
   "scripts": {
     "dev": "./scripts/dev.sh",
@@ -26,7 +25,9 @@
     "compile-watch": "npm run compile -- --watch",
     "clean": "rimraf build",
     "prettier": "prettier --write 'src/**/*.ts'",
-    "dk-build": "docker-compose build",
+    "dk-build": "npm run dk-build-prod", 
+    "dk-build-dev": "./scripts/dk-build.sh development",
+    "dk-build-prod": "./scripts/dk-build.sh production",
     "dk-foreground": "docker-compose up",
     "dk-up": "docker-compose up -d",
     "dk-down": "docker-compose down --volumes",
