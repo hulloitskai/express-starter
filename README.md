@@ -78,7 +78,6 @@ First, edit `package.json`'s *config* section:
 * Set `docker-tag` to a pattern that matches *"#.#.#-prod"* or *"#.#.#-dev"*
   (this affects the tag of the build *docker image*, and sets the image
   "version" label in the *Dockerfile*).
-* Set `docker-node-version` to the Node Docker image version you want to use.
 
 ```bash
 # dk = docker
@@ -151,8 +150,6 @@ cd /var/lib/docker/volumes
   is set to *"production"*.
 * `docker-tag` – the version tag that Docker will label the image with during
   the build process. Conventionally follows the pattern of *"#.#.#-(ENV NAME)"*.
-* `docker-node-version` – the version number of the Node alpine image to use
-  during image construction.
 
 ### `docker-compose.yml`:
 The `services → express → environment` section can be configured with

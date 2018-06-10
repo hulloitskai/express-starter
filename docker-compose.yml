@@ -7,12 +7,11 @@ services:
     build:
       context: .
       cache_from:
-        - node:${npm_package_config_docker_node_version}-alpine
+        - node:10.4.0-alpine
       target: ${npm_package_config_docker_build_env}
       args:
         - BUILD_ENV=${npm_package_config_docker_build_env}
         - VERSION=${npm_package_config_docker_tag}
-        - NODE_VERSION=${npm_package_config_docker_node_version}
         
     # environment:
       # - NODE_ENV=... (useful if you want to set BUILD_ENV="development" to include

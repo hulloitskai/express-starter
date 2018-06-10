@@ -4,8 +4,7 @@
 ## DEVELOPMENT STAGE
 ##################################################
 
-ARG NODE_VERSION="10.4.0"
-FROM node:${NODE_VERSION}-alpine AS development
+FROM node:10.4.0-alpine AS development
 
 # Set labels
 ARG VERSION="latest"

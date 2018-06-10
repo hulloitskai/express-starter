@@ -15,8 +15,7 @@
     "jmespath-log-filter": "contains(name, `server`)",
     "browser-live-reload": false,
     "docker-build-env": "development",
-    "docker-tag": "1.2.2-dev",
-    "docker-node-version": "10.4.0"
+    "docker-tag": "1.2.2-dev"
   },
   "scripts": {
     "dev": "./scripts/dev.sh",
