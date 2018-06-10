@@ -17,8 +17,9 @@ COPY . .
 # Install Linux dependencies
 RUN apk update && apk add --no-cache git
 
-# If 'BUILD_ENV' build arg is available, use it here
+# Configure BUILD_ENV and IS_DOCKER variables
 ARG BUILD_ENV="development"
+ENV IS_DOCKER=true
 
 # Install app dependencies; also, if constructing a production build,
 #   precompile the Javascript, remove 'src/', and reinstall only production
@@ -30,8 +31,8 @@ RUN echo "Building with BUILD_ENV: $BUILD_ENV" && yarn && \
       rm -rf src/; \
     else yarn cache clean; fi
 
-# Configure environment variables
-ENV NODE_ENV=$BUILD_ENV IS_DOCKER=true
+# Configure NODE_ENV variable
+ENV NODE_ENV=$BUILD_ENV
 
 # Expose port and volume mount point
 EXPOSE 3000

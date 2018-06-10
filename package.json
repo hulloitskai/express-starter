@@ -48,7 +48,7 @@
     "pm2-deploy": "pm2 deploy pm2.ecosystem.config.js production",
     "pm2-update": "pm2 deploy pm2.ecosystem.config.js production update",
     "pm2-update-force": "npm run pm2-update --force",
-    "postinstall": "git config core.hooksPath .githooks"
+    "postinstall": "./scripts/postinstall.sh"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
