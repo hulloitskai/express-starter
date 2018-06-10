@@ -6,15 +6,10 @@ module.exports = {
   apps: [
     {
       name: "express-starter",
-      script: "src/server.ts",
+      script: "scripts/start.sh",
       watch: false,
-      env: {
-        NODE_ENV: "development"
-      },
-      env_production: {
-        NODE_ENV: "production"
-      },
-      interpreter_args: "--transpile-only"
+      env: { NODE_ENV: "development" },
+      env_production: { NODE_ENV: "production" }
     }
   ],
 
@@ -30,8 +25,7 @@ module.exports = {
       ref: "origin/master", // Branch
       repo: "git@github.com:%USERNAME%/%REPOSITORY%.git",
       path: "%PATH_TO_APP%",
-      "post-deploy": "npm install & npm run pm2",
-      "post-setup": "pm2 install typescript"
+      "post-deploy": "npm install && npm run pm2",
     }
   }
   */
