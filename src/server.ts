@@ -7,11 +7,10 @@ import opn = require('opn');
 
 import App from './App';
 import { serverLogger as logger } from './imports';
-type ErrnoException = NodeJS.ErrnoException;
 
 // Make V8 refer back to Typescript code when outputting messages
 if (process.env.NODE_ENV === 'development') installSourceMaps();
-// Load .env variables upon entry, if available.
+// Load .env variables upon entry, if available
 dotenv.load();
 
 const app = new App().export(); // Start application
@@ -64,6 +63,7 @@ function listenOnPort(port) {
   }
 
   /** Runs upon server failure */
+  type ErrnoException = NodeJS.ErrnoException;
   function onError(error: ErrnoException) {
     // Only handling 'listen' errors!
     if (error.syscall !== 'listen') throw error;

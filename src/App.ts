@@ -40,6 +40,8 @@ class App {
     this.instance.use('/api', this.apiRouter);
 
     // Configure to serve index and assets from static as a fallback mechanism
+    // (Ideally, you should be using NGINX to serve static assets! Express is
+    //   best used as an API server, as it is generally slower than NGINX.)
     this.instance.get('/', (req, res) => res.sendFile(indexDir));
     this.instance.use(express.static(staticDir));
   }
