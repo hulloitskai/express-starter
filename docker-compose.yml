@@ -18,7 +18,7 @@ services:
     image: stevenxie/express-starter:${BUILD_TAG}
     container_name: express-starter
     ports:
-      - "3000:3000"
+      - "3001:3000"
     volumes:
       - express-vol:/app/dist
 #    restart: on-failure

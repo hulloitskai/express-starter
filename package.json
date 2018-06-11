@@ -1,6 +1,6 @@
 {
   "name": "express-starter",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "An opinionated Typescript starter setup for Express + Pino.",
   "repository": "https://github.com/steven-xie/express-starter",
   "bugs": {
@@ -14,7 +14,7 @@
     "prod-log-level": "error",
     "jmespath-log-filter": "contains(name, `server`)",
     "browser-live-reload": false,
-    "docker-image-version": "1.2.5"
+    "docker-image-version": "1.2.6"
   },
   "scripts": {
     "dev": "./scripts/dev.sh",
@@ -24,6 +24,7 @@
     "compile": "tsc --project tsconfig.json",
     "compile-watch": "npm run compile -- --watch",
     "clean": "rimraf build",
+    "test": "NODE_ENV=test && npm run build && cd tests && ./runner.sh",
     "prettier": "prettier --write 'src/**/*.ts'",
     "dk-build": "npm run dk-build-prod",
     "dk-build-dev": "./scripts/dk-build.sh development",
@@ -39,6 +40,7 @@
     "dk-run": "docker-compose run",
     "dk-sh": "npm run dk-exec express sh",
     "dk-cold-sh": "npm run dk-run express sh",
+    "dk-test": "npm run dk-run express yarn test",
     "dk-ps": "docker-compose ps",
     "dk-logs": "docker-compose logs express",
     "dk-inspect": "docker inspect express-starter",
@@ -64,6 +66,8 @@
     "@types/node": "^10.3.2",
     "@types/opn": "^5.1.0",
     "@types/pino": "^4.16.0",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "concurrently": "^3.5.1",
     "nodemon": "^1.17.5",
     "opn": "^5.3.0",
