@@ -1,6 +1,9 @@
 ## Compiled output
 /build/
 
+## Environment configs
+.env
+
 ## Node dependencies
 /node_modules
 

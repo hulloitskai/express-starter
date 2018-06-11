@@ -6,20 +6,16 @@ services:
   express:
     build:
       context: .
-      cache_from:
-        - node:${npm_package_config_docker_node_version}-alpine
-      target: ${npm_package_config_docker_build_env}
+      target: ${BUILD_ENV}
       args:
-        - BUILD_ENV=${npm_package_config_docker_build_env}
-        - VERSION=${npm_package_config_docker_tag}
-        - NODE_VERSION=${npm_package_config_docker_node_version}
-        
+        - BUILD_ENV=${BUILD_ENV}
+        - BUILD_TAG=${BUILD_TAG}
     # environment:
       # - NODE_ENV=... (useful if you want to set BUILD_ENV="development" to include
       #                 all dependencies and dynamically launch with "yarn start")
       # - LOG_LEVEL=... (for dynamically setting up an override log level)
       # - LOG_FILTER=... (for dynamically setting up an override log filter)
-    image: stevenxie/express-starter:${npm_package_config_docker_tag}
+    image: stevenxie/express-starter:${BUILD_TAG}
     container_name: express-starter
     ports:
       - "3000:3000"

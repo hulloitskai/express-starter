@@ -1,0 +1,13 @@
+OUT_LENGTH=$(yarn prettier -l | wc -l)
+
+if [ $OUT_LENGTH -eq 3 ]; then
+  echo "Passed Prettier check!"
+elif [ $OUT_LENGTH -gt 3 ]; then
+  echo "Some files were Prettified; please stage \
+the ones you'd like to commit!"
+  exit 1
+else
+  echo "Something went wrong: Got an OUT_LENGTH of $OUT_LENGTH"
+  exit 2
+fi
+

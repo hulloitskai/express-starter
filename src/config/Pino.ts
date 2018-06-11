@@ -8,7 +8,6 @@ const {
   NODE_ENV
 } = process.env;
 
-
 // prettier-ignore
 const level = ENV_LOG_LEVEL || NODE_ENV === 'development'
   ? DEV_LOG_LEVEL

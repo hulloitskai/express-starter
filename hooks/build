@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## Build Docker image
+docker build --build-arg BUILD_ENV="$BUILD_ENV" \
+             --build-arg BUILD_TAG="$BUILD_TAG" \
+             --tag "$DOCKER_REPO:$BUILD_TAG" \
+             --target "$BUILD_ENV" \
+             .

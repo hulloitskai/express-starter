@@ -4,34 +4,35 @@
 ## DEVELOPMENT STAGE
 ##################################################
 
-ARG NODE_VERSION="10.4.0"
-FROM node:${NODE_VERSION}-alpine AS development
+FROM node:10.4.0-alpine AS development
 
 # Set labels
-ARG VERSION="latest"
-LABEL version=$VERSION maintainer="Steven Xie <dev@stevenxie.me>"
+ARG BUILD_TAG="latest"
+LABEL version=$BUILD_TAG maintainer="Steven Xie <dev@stevenxie.me>"
 
 # Create app directory and bundle app source
 WORKDIR /app
 COPY . .
 
-# If 'BUILD_ENV' build arg is available, use it here
-ARG BUILD_ENV="development"
+# Install Linux dependencies
+RUN apk update && apk add --no-cache git
 
-# Install git, bash, package dependencies. If constructing a production build,
+# Configure BUILD_ENV and IS_DOCKER variables
+ARG BUILD_ENV="development"
+ENV IS_DOCKER=true
+
+# Install app dependencies; also, if constructing a production build,
 #   precompile the Javascript, remove 'src/', and reinstall only production
-#   dependencies. 
-RUN apk update && apk add --no-cache git && yarn && \
+#   dependencies
+RUN echo "Building with BUILD_ENV: $BUILD_ENV" && yarn && \
     if [ "$BUILD_ENV" == production ]; then \
       echo "Precompiling to Javascript for production..." && \
       yarn compile && yarn --production --prefer-offline && \
       rm -rf src/; \
-    else \
-      yarn cache clean; \
-    fi
+    else yarn cache clean; fi
 
-# Configure environment variables
-ENV NODE_ENV=$BUILD_ENV IS_DOCKER=true
+# Configure NODE_ENV variable
+ENV NODE_ENV=$BUILD_ENV
 
 # Expose port and volume mount point
 EXPOSE 3000

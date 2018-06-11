@@ -45,7 +45,7 @@ class App {
   }
 
   /** Exports the App's internal Express instance */
-  export = (): Application => this.instance
+  export = (): Application => this.instance;
 }
 
 export default App;
