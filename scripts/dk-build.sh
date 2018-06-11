@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ## Environment argument must exist
 if [ $# -eq 0 ]; then
