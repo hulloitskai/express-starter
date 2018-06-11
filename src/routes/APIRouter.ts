@@ -11,8 +11,8 @@ export class APIRouter extends CustomRouter {
   }
 
   registerRoutes() {
-    this.router.get('/', (_, res) => res.json('The API is working!'));
     this.router.use('/puppies', this.puppyRouter);
+    this.router.get('/', (_, res) => res.json('The API is working!'));
   }
 }
 

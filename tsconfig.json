@@ -9,7 +9,7 @@
     "outDir": "build",
     "strict": true,
     "allowJs": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "inlineSources": false,
     "removeComments": true,
     "noImplicitAny": false,

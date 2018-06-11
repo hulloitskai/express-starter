@@ -17,7 +17,13 @@ class PuppyRouter extends CustomRouter {
     this.router.get('/', this.getPuppies);
   }
 
-  getPuppies(req: Request, res: Response) {
+  /**
+   * Returns an `application/json` response that reflects the current
+   *   state of the program.
+   * Is an arrow function in order to capture `this` in its closure, so that
+   *   it would register correctly in `registerRoutes`.
+   */
+  getPuppies = (req: Request, res: Response) => {
     this.hitCount += 1;
     const resObj = {
       messages: 'Puppies API was hit!',
@@ -30,7 +36,7 @@ class PuppyRouter extends CustomRouter {
     logger.info(resObj);
     // Send to client as prettified JSON
     sendPrettyJSON(res, resObj);
-  }
+  };
 }
 
 export default PuppyRouter;
