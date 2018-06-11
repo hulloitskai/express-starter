@@ -18,9 +18,9 @@ npm install
 <br />
 
 
-## General Usage
+## General usage
 
-### Starting the Server:
+### Starting the server:
 
 ```bash
 # If using Yarn:
@@ -35,9 +35,12 @@ yarn start  # selects 'yarn dev' or 'yarn prod' based
 #   'npm run ...' for each command.
 ```
 
-### Default Endpoints:
+### Default endpoints:
 
 * `/` - Endpoint for `static/index.html`. Static assets are served from `static/`.
+
+  > *Note that in production, usage of Express as a static asset server is discouraged, as it is much more efficient to use NGINX to serve static content, and to use Express only as an API server.*
+
 * `/api` - Main API endpoint; returns a `text/plain` message indicating that the
   API is working.
 * `/api/puppies` - Sample API endpoint that counts page refreshes. Sends data
@@ -47,7 +50,7 @@ yarn start  # selects 'yarn dev' or 'yarn prod' based
 <br />
 
 
-## Docker Usage
+## Usage with Docker
 
 ### Setup
 
@@ -77,7 +80,9 @@ yarn dk-build-dev
 Once you build a version, the `.env` file will be populated with the build
 configuration (i.e. BUILD_ENV and BUILD_TAG). 
 
-_**Method 2:** Pulling an image from Docker Hub:_
+_**Method 2:** Pulling a remote registry image._
+
+Pull the latest image from Docker Hub:
 
 ```bash
 docker pull stevenxie/express-starter
@@ -97,7 +102,7 @@ yarn dk-foreground
 yarn dk-up
 ```
 
-### Regular usage
+### Normal usage
 
 To stop the container, run `yarn dk-stop`, and to run it again, run
 `yarn dk-start`. The container can also be paused with `yarn dk-pause`.
@@ -128,7 +133,7 @@ cd /var/lib/docker/volumes
 <br />
 
 
-## PM2 Usage:
+## Usage with PM2 
 
 To launch on a server with [PM2](http://pm2.keymetrics.io) installed globally,
 run with `yarn pm2` or `npm run pm2`. This will allow you to monitor the status
