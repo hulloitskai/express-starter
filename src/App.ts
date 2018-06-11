@@ -9,11 +9,10 @@ type Application = express.Application;
 /// Creates and configures an Express web server.
 class App {
   /** Express app instance */
-  public instance: Application;
+  private instance = express();
 
   /** Configure Express instance */
   constructor() {
-    this.instance = express();
     this.setup();
     this.middlewares();
     this.routes();
@@ -27,8 +26,8 @@ class App {
   /** Configure Express middleware */
   private middlewares() {
     this.instance.use(expressLogger);
-    this.instance.use('/api/**/*', bodyParser.json());
-    this.instance.use('/api/**/*', bodyParser.urlencoded({ extended: false }));
+    this.instance.use('/api', bodyParser.json());
+    this.instance.use('/api', bodyParser.urlencoded({ extended: false }));
   }
 
   /** Configure API endpoints */

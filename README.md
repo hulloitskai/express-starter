@@ -43,28 +43,6 @@ yarn start  # selects 'yarn dev' or 'yarn prod' based
 
 <br />
 
-## PM2 Usage:
-
-To launch on a server with [PM2](http://pm2.keymetrics.io) installed globally,
-run with `yarn pm2` or `npm run pm2`. This will allow you to monitor the status
-of the server, and auto-restart it if it crashes.
-
-### Using auto-deployment:
-
-If you have your server settings correctly filled out in `pm2.ecosystem.conf.js → deployment`, and your server has your GitHub SSH keys / credentials, then you can set-up the server instantly as follows:
-
-```bash
-# If using Yarn:
-yarn pm2-setup
-yarn pm2-deploy
-```
-
-After that, every time you want to update to the latest Git commit, just run
-`yarn pm2-update`. If you've at some point performed a `git push --force`,
-then it is necessary to run `yarn pm2-update-force` instead.
-
-<br />
-
 ## Docker Usage
 
 ### Setup
@@ -141,6 +119,28 @@ screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
 #   following location:
 cd /var/lib/docker/volumes
 ```
+
+<br />
+
+## PM2 Usage:
+
+To launch on a server with [PM2](http://pm2.keymetrics.io) installed globally,
+run with `yarn pm2` or `npm run pm2`. This will allow you to monitor the status
+of the server, and auto-restart it if it crashes.
+
+### Using auto-deployment:
+
+If you have your server settings correctly filled out in `pm2.ecosystem.conf.js → deployment`, and your server has your GitHub SSH keys / credentials, then you can set-up the server instantly as follows:
+
+```bash
+# If using Yarn:
+yarn pm2-setup
+yarn pm2-deploy
+```
+
+After that, every time you want to update to the latest Git commit, just run
+`yarn pm2-update`. If you've at some point performed a `git push --force`,
+then it is necessary to run `yarn pm2-update-force` instead.
 
 <br />
 
