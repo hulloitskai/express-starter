@@ -18,9 +18,9 @@ npm install
 <br />
 
 
-## General Usage
+## General usage
 
-### Starting the Server:
+### Starting the server:
 
 ```bash
 # If using Yarn:
@@ -31,13 +31,17 @@ yarn prod   # starts a production server with minimal
 yarn start  # selects 'yarn dev' or 'yarn prod' based
             # on your NODE_ENV
 
-# If using NPM, replace 'yarn ...' with 
-#   'npm run ...' for each command.
+# If using NPM, replace 'yarn ...' with 'npm run ...'
+#   However, 'yarn' is highly recommended for a more
+#   deterministic package installation!
 ```
 
-### Default Endpoints:
+### Default endpoints:
 
 * `/` - Endpoint for `static/index.html`. Static assets are served from `static/`.
+
+  > *Note that in production, usage of Express as a static asset server is discouraged, as it is much more efficient to use NGINX to serve static content, and to use Express only as an API server.*
+
 * `/api` - Main API endpoint; returns a `text/plain` message indicating that the
   API is working.
 * `/api/puppies` - Sample API endpoint that counts page refreshes. Sends data
@@ -47,21 +51,21 @@ yarn start  # selects 'yarn dev' or 'yarn prod' based
 <br />
 
 
-## Docker Usage
+## Usage with Docker
 
 ### Setup
 
 _**Method 1:** Building an image from scratch._
 
 First, edit `package.json`'s *config* section:
-* Set `docker-image-version` to a pattern that matches *"#.#.#"* (typically
-  using [semver](https://semver.org) versioning). This affects the tag of the
-  built *docker image* (which will look something along the lines of
-  *#.#.#-prod* or *#.#.#-dev*), and also sets the image "version" label.
+* Set `docker-image-version` to a pattern that matches **#.#.#** (typically
+  using [*semver*](https://semver.org))). This affects the tag of the
+  built **Docker image** (which will look something along the lines of
+  **#.#.#-prod** or **#.#.#-dev**), and also sets the image **version** label.
 
-Now, decide whether you want to build for *production* or *development* (this
-affects the installed dependencies, and whether `express-starter` runs in
-development / production mode), and run the associated command:
+Now, decide whether you want to build for **production** or **development**
+(this affects the installed dependencies, and whether `express-starter` runs
+in development / production mode), and run the associated command:
 
 ```bash
 # dk = docker
@@ -75,19 +79,22 @@ yarn dk-build-dev
 ```
 
 Once you build a version, the `.env` file will be populated with the build
-configuration (i.e. BUILD_ENV and BUILD_TAG). 
+configuration (i.e. `BUILD_ENV` and `BUILD_TAG`). 
 
-_**Method 2:** Pulling an image from Docker Hub:_
+_**Method 2:** Pulling a remote registry image._
+
+Pull the latest image from Docker Hub:
 
 ```bash
 docker pull stevenxie/express-starter
 ```
 
-Then, start a container from Docker Compose (which is named `express-starter`,
-configured to expose port _3000_, and mount a volume named `express-vol`). 
-If no image has been built, it will also build an image before starting a 
-container from it. *Make sure you have Docker Compose installed, or look up
-how to manually configure a built with `docker build`!*
+Then, start a container from [Docker Compose](https://docs.docker.com/compose/)
+(which is named `express-starter`, configured to expose port **3000**, and
+mount a volume named `express-vol`). If no image has been built, it will also
+build an image before starting a container from it. *Make sure you have
+[Docker Compose](https://docs.docker.com/compose/) installed, or look up how
+to manually configure a build with `docker build`!*
 
 ```bash
 # To see output in the console foreground (dk = docker)
@@ -97,21 +104,30 @@ yarn dk-foreground
 yarn dk-up
 ```
 
-### Regular usage
+### Normal usage
+
+To instantiate a container, run `yarn dk-up`. If no image is built, it will
+also build the initial image.
+
+> *For more information about Docker images and containers, please see [Docker's  documentation](https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/).*
 
 To stop the container, run `yarn dk-stop`, and to run it again, run
 `yarn dk-start`. The container can also be paused with `yarn dk-pause`.
 
-To remove the container entirely, run `yarn dk-down`.
+To remove the container entirely, run `yarn dk-down`. To also remove images,
+run `yarn dk-purge`.
 
-If you have multiple environments / tags, you can have the `Yarn dk-...` scripts
+> See the `package.json` for more useful Docker-related scripts! Each Docker 
+> script is prefixed with `dk-`.
+
+If you have multiple environments / tags, you can have the `yarn dk-...` scripts
 target a different image by editing the `.env` file with the correct `BUILD_ENV`
 and `BUILD_TAG`.
 
 ### Accessing Volumes on Mac OS X
 
 If you're on a Mac, you won't be able to access the `express-vol` Docker
-volume directly through the filesystem: You have to access it through
+volume directly through the filesystem; you'll have to access it through
 Docker's VM as follows:
 
 ```bash
@@ -128,7 +144,7 @@ cd /var/lib/docker/volumes
 <br />
 
 
-## PM2 Usage:
+## Usage with PM2 
 
 To launch on a server with [PM2](http://pm2.keymetrics.io) installed globally,
 run with `yarn pm2` or `npm run pm2`. This will allow you to monitor the status
@@ -136,10 +152,12 @@ of the server, and auto-restart it if it crashes.
 
 ### Using auto-deployment:
 
-If you have your server settings correctly filled out in `pm2.ecosystem.conf.js → deployment`, and your server has your GitHub SSH keys / credentials, then you can set-up the server instantly as follows:
+If you have your server settings correctly filled out in
+**pm2.ecosystem.conf.js → deployment**, and your server has your GitHub SSH
+keys / credentials, then you can set-up the server instantly as follows:
 
 ```bash
-# If using Yarn:
+# Assuming using Yarn:
 yarn pm2-setup
 yarn pm2-deploy
 ```
@@ -163,14 +181,14 @@ then it is necessary to run `yarn pm2-update-force` instead.
 * `jmespath-log-filter` – the filter to be applied to the console
   output logs during development. Uses the
   [JMESPath query language](http://jmespath.org). To show all output,
-  use: `*`. _(default: `` contains(name, `server`) ``)_
+  set to: `*`. _(default: `` contains(name, `server`) ``)_
 * `browser-live-reload` – whether or not you would like the _browser_ to reload
   when you save your code. Useful if you're making visual changes. (The server
-  itself will always live-reload to reflect new changes). _(default: `true`)_
-* `docker-image-version` — a pattern that matches *"#.#.#"* (typically using
-  [semver](https://semver.org) versioning). This affects the tag of the built
-  *docker image* (which will look something along the lines of *#.#.#-prod*
-  or *#.#.#-dev*), and also sets the image "version" label.
+  itself will always live-reload to reflect new changes). _(default: `false`)_
+* `docker-image-version` — a pattern that matches **#.#.#** (typically using
+  [semver](https://semver.org)). This affects the tag of the built
+  **docker image** (which will look something along the lines of **#.#.#-prod**
+  or **#.#.#-dev**), and also sets the image **version** label.
 
 ### docker-compose.yml
 The '**services → express → environment**' section can be configured with

@@ -2,13 +2,17 @@ import * as dotenv from 'dotenv';
 import { Application } from 'express';
 import * as _getPort from 'get-port';
 import * as http from 'http';
+import { install as installSourceMaps } from 'source-map-support';
 import opn = require('opn');
 
 import App from './App';
 import { serverLogger as logger } from './imports';
 type ErrnoException = NodeJS.ErrnoException;
 
-dotenv.load(); // Load .env variables
+// Make V8 refer back to Typescript code when outputting messages
+if (process.env.NODE_ENV === 'development') installSourceMaps();
+// Load .env variables upon entry, if available.
+dotenv.load();
 
 const app = new App().export(); // Start application
 start(app);
