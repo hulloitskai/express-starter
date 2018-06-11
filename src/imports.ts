@@ -1,5 +1,5 @@
-import { routing, utils } from './shared';
 import { pino } from './config';
+import { routing, utils } from './shared';
 
 // Import de-structuring
 const { serverLogger, expressLogger } = pino;

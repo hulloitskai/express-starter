@@ -14,7 +14,9 @@ yarn install
 npm install
 ```
 
+
 <br />
+
 
 ## General Usage
 
@@ -41,7 +43,9 @@ yarn start  # selects 'yarn dev' or 'yarn prod' based
 * `/api/puppies` - Sample API endpoint that counts page refreshes. Sends data
   as `application/json`.
 
+
 <br />
+
 
 ## Docker Usage
 
@@ -79,8 +83,8 @@ _**Method 2:** Pulling an image from Docker Hub:_
 docker pull stevenxie/express-starter
 ```
 
-Then, start a container from Docker Compose (which is configured to expose
-port _3000_, and named `express-starter`, and mount a volume named `express-vol`). 
+Then, start a container from Docker Compose (which is named `express-starter`,
+configured to expose port _3000_, and mount a volume named `express-vol`). 
 If no image has been built, it will also build an image before starting a 
 container from it. *Make sure you have Docker Compose installed, or look up
 how to manually configure a built with `docker build`!*
@@ -120,7 +124,9 @@ screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
 cd /var/lib/docker/volumes
 ```
 
+
 <br />
+
 
 ## PM2 Usage:
 
@@ -142,11 +148,13 @@ After that, every time you want to update to the latest Git commit, just run
 `yarn pm2-update`. If you've at some point performed a `git push --force`,
 then it is necessary to run `yarn pm2-update-force` instead.
 
+
 <br />
+
 
 ## Configuration
 
-### `package.json → config`:
+### package.json: config
 
 * `dev-log-level` – logging level for when the server is started in
   development mode _(default: `debug`)_.
@@ -159,19 +167,17 @@ then it is necessary to run `yarn pm2-update-force` instead.
 * `browser-live-reload` – whether or not you would like the _browser_ to reload
   when you save your code. Useful if you're making visual changes. (The server
   itself will always live-reload to reflect new changes). _(default: `true`)_
-* `docker-build-env` – the Node environment that Docker will package for when
-  building an image. Should be one of *"production"*, *"development"*. Docker
-  will not package *devDependencies* as part of the build process when this
-  is set to *"production"*.
-* `docker-tag` – the version tag that Docker will label the image with during
-  the build process. Conventionally follows the pattern of *"#.#.#-(ENV NAME)"*.
+* `docker-image-version` — a pattern that matches *"#.#.#"* (typically using
+  [semver](https://semver.org) versioning). This affects the tag of the built
+  *docker image* (which will look something along the lines of *#.#.#-prod*
+  or *#.#.#-dev*), and also sets the image "version" label.
 
-### `docker-compose.yml`:
-The `services → express → environment` section can be configured with
+### docker-compose.yml
+The '**services → express → environment**' section can be configured with
 environment variables like `NODE_ENV`, `LOG_LEVEL`, and `LOG_FILTER`, which
 will override related settings in the NPM package configuration.
 
-### `pm2.ecosystem.config.js`
+### pm2.ecosystem.config.js
 
-Allows you to configure custom properties for PM2 monitoring and remote
-deployment. [See the documentation for details](http://pm2.keymetrics.io/docs/usage/application-declaration/).
+Allows you to configure custom properties for [PM2](https://pm2.io) monitoring
+and remote deployment. [See the documentation for details](http://pm2.keymetrics.io/docs/usage/application-declaration/).

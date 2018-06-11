@@ -1,6 +1,6 @@
 {
   "name": "express-starter",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "An opinionated Typescript starter setup for Express + Pino.",
   "repository": "https://github.com/steven-xie/express-starter",
   "bugs": {
@@ -25,7 +25,7 @@
     "compile-watch": "npm run compile -- --watch",
     "clean": "rimraf build",
     "prettier": "prettier --write 'src/**/*.ts'",
-    "dk-build": "npm run dk-build-prod", 
+    "dk-build": "npm run dk-build-prod",
     "dk-build-dev": "./scripts/dk-build.sh development",
     "dk-build-prod": "./scripts/dk-build.sh production",
     "dk-foreground": "docker-compose up",
@@ -67,8 +67,8 @@
     "@types/pino": "^4.16.0",
     "concurrently": "^3.5.1",
     "nodemon": "^1.17.5",
-    "pino-pretty": "^1.0.1",
-    "prettier": "https://github.com/pinojs/pino-pretty.git#v2.0.0-rc.1",
+    "pino-pretty": "https://github.com/pinojs/pino-pretty.git#v2.0.0-rc.1",
+    "prettier": "^1.13.5",
     "rimraf": "^2.6.2",
     "typescript": "^2.9.1"
   }

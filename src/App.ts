@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
-import { apiRouter } from './routes';
+import { ApiRouter } from './routes';
 import { expressLogger } from './imports';
 type Application = express.Application;
 
@@ -10,6 +10,7 @@ type Application = express.Application;
 class App {
   /** Express app instance */
   private instance = express();
+  private apiRouter = new ApiRouter().export();
 
   /** Configure Express instance */
   constructor() {
@@ -36,7 +37,7 @@ class App {
     const indexDir = path.resolve(staticDir, 'index.html');
 
     // Configure API route
-    this.instance.use('/api', apiRouter);
+    this.instance.use('/api', this.apiRouter);
 
     // Configure to serve index and assets from static as a fallback mechanism
     this.instance.get('/', (req, res) => res.sendFile(indexDir));

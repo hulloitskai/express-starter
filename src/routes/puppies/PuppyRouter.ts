@@ -1,16 +1,20 @@
 import { Request, Response } from 'express';
-
 import {
+  CustomRouter,
   puppiesLogger as logger,
-  sendPrettyJSON,
-  CustomRouter
+  sendPrettyJSON
 } from './imports';
 
 class PuppyRouter extends CustomRouter {
   private hitCount = 0;
 
+  constructor() {
+    super();
+    this.registerRoutes();
+  }
+
   registerRoutes() {
-    this.router.get('/', this.getPuppies.bind(this));
+    this.router.get('/', this.getPuppies);
   }
 
   getPuppies(req: Request, res: Response) {
@@ -29,4 +33,4 @@ class PuppyRouter extends CustomRouter {
   }
 }
 
-export default new PuppyRouter().export();
+export default PuppyRouter;

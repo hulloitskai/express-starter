@@ -1,3 +1,3 @@
-import puppyRouter from './PuppyRouter';
+import PuppyRouter from './PuppyRouter';
 
-export { puppyRouter };
+export { PuppyRouter };

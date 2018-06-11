@@ -1,4 +1,4 @@
-import { serverLogger, routing, utils } from '../imports';
+import { routing, serverLogger, utils } from '../imports';
 
 // Import de-structuring
 const { default: CustomRouter } = routing.custom_router;

@@ -1,11 +1,11 @@
-import * as http from 'http';
-import * as _getPort from 'get-port';
 import * as dotenv from 'dotenv';
 import { Application } from 'express';
+import * as _getPort from 'get-port';
+import * as http from 'http';
+import opn = require('opn');
 
 import App from './App';
 import { serverLogger as logger } from './imports';
-import opn = require('opn');
 type ErrnoException = NodeJS.ErrnoException;
 
 dotenv.load(); // Load .env variables

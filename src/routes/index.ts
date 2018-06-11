@@ -1,3 +1,3 @@
-import apiRouter from './APIRouter';
+import ApiRouter from './APIRouter';
 
-export { apiRouter };
+export { ApiRouter };
