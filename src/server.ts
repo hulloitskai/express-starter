@@ -27,23 +27,23 @@ function start(app: Application) {
 }
 
 /** Get the port using `get-port`. */
-async function getPort() {
+async function getPort(): Promise<string> {
   const DEFAULT_PORT = 3000;
   return await _getPort(process.env.PORT || DEFAULT_PORT);
 }
 
 /** Configure the Express server to listen on the specified port. */
-function listenOnPort(port) {
-  const bind = `port ${port}`; // Set the listening port
-
+function listenOnPort(port: string) {
   const server = http.createServer(app); // Serve the app using `http`
   server.listen(port);
   server.on('listening', onListening);
   server.on('error', onError);
+}
 
-  /** Runs upon successful listen */
-  function onListening() {
-    logger.info('listening on %s', bind);
+/** Returns a function to be called upon successful listen. */
+function onListening(port: string) {
+  return function() {
+    logger.info('Listening on port %s...', port);
 
     // Open in browser (for dev mode only), while logging errors as an alert...
     const {
@@ -57,29 +57,30 @@ function listenOnPort(port) {
       IS_DOCKER !== 'true'
     ) {
       opn(`http://127.0.0.1:${port}`).catch((err: Error) =>
-        logger.warn('could not open in browser: %O', err)
+        logger.warn('Could not open in browser: %O', err)
       );
     }
-  }
+  };
+}
 
-  /** Runs upon server failure */
-  type ErrnoException = NodeJS.ErrnoException;
-  function onError(error: ErrnoException) {
+/** Returns a function to be called upon server listening failure. */
+function onError(port: string) {
+  return function(err: NodeJS.ErrnoException) {
     // Only handling 'listen' errors!
-    if (error.syscall !== 'listen') throw error;
+    if (err.syscall !== 'listen') throw err;
 
-    switch (error.code) {
+    switch (err.code) {
       case 'EACCES':
-        logger.fatal('%s requires elevated privileges', bind);
+        logger.fatal('Port %s requires elevated privileges.', port);
         break;
       case 'EADDRINUSE':
-        logger.fatal('%s is already in use', bind);
+        logger.fatal('Port %s is already in use.', port);
         break;
       default:
-        logger.fatal('http server ran into a fatal error: %O', error);
+        logger.fatal('HTTP server ran into a fatal error: %O', err);
     }
 
-    logger.fatal('exiting due to critical error...');
+    logger.fatal('Exiting due to critical error...');
     process.exit(2);
-  }
+  };
 }
