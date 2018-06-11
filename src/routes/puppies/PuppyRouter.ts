@@ -26,7 +26,7 @@ class PuppyRouter extends CustomRouter {
   getPuppies = (req: Request, res: Response) => {
     this.hitCount += 1;
     const resObj = {
-      messages: 'Puppies API was hit!',
+      message: 'Puppies API was hit!',
       requestQuery: req.query,
       requestIP: req.ip,
       count: this.hitCount,

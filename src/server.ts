@@ -14,16 +14,16 @@ if (process.env.NODE_ENV === 'development') installSourceMaps();
 dotenv.load();
 
 const app = new App().export(); // Start application
-start(app);
+if (process.env.NODE_ENV !== 'test') start();
 
 /** Main thread logic. */
-function start(app: Application) {
-  try {
-    getPort().then(listenOnPort);
-  } catch (e) {
-    logger.fatal(`An unknown fatal error occurred: ${e}`);
-    process.exit(1);
-  }
+function start() {
+  return getPort()
+    .then(listenOnPort)
+    .catch(function(err) {
+      logger.fatal(`An unknown fatal error occurred: ${err}`);
+      process.exit(1);
+    });
 }
 
 /** Get the port using `get-port`. */
@@ -38,6 +38,7 @@ function listenOnPort(port: string) {
   server.listen(port);
   server.on('listening', onListening);
   server.on('error', onError);
+  return server;
 }
 
 /** Returns a function to be called upon successful listen. */
@@ -84,3 +85,5 @@ function onError(port: string) {
     process.exit(2);
   };
 }
+
+export default start; // Export server starter for testing purposes
