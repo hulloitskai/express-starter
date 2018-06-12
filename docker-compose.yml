@@ -1,5 +1,3 @@
-# docker-compose
-
 version: "3.4"
 
 services:
@@ -20,7 +18,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - express-vol:/app/dist
+      - express-vol:/app
 #    restart: on-failure
 
 volumes:
