@@ -1,0 +1,46 @@
+# .travis.yml
+
+## Language and services
+sudo: required
+language: node_js
+node_js: node
+services: docker
+
+## Git configuration
+git:
+  depth: 5  # limit clone depth
+  submodules: false
+
+## Env configuration
+env:
+  - NODE_ENV=test
+
+## Define custom jobs
+definitions:
+  local-test: &local-test
+    stage: Local test
+    install: yarn
+    script:
+      - echo "Running local test against $(node -v)..."
+      - yarn test
+
+  docker-test: &docker-test
+    stage: Docker test
+    install: yarn dk-build-dev
+    script: 
+      - echo "Running Docker test..."
+      - yarn dk-test
+
+## Build stages
+jobs:
+  include:
+    ## Local tests (with differing Node versions)
+    - <<: *local-test
+      node_js: "node"
+    - <<: *local-test
+      node_js: "stable"
+    - <<: *local-test
+      node_js: "lts/*"
+
+    ## Docker test
+    - <<: *docker-test

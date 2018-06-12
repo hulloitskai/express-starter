@@ -2,28 +2,29 @@ import * as dotenv from 'dotenv';
 import { Application } from 'express';
 import * as _getPort from 'get-port';
 import * as http from 'http';
-import { install as installSourceMaps } from 'source-map-support';
-import opn = require('opn');
 
 import App from './App';
 import { serverLogger as logger } from './imports';
 
 // Make V8 refer back to Typescript code when outputting messages
-if (process.env.NODE_ENV === 'development') installSourceMaps();
+if (process.env.NODE_ENV === 'development') {
+  const { install } = require('source-map-support');
+  install();
+}
 // Load .env variables upon entry, if available
 dotenv.load();
 
 const app = new App().export(); // Start application
-start(app);
+if (process.env.NODE_ENV !== 'test') start();
 
 /** Main thread logic. */
-function start(app: Application) {
-  try {
-    getPort().then(listenOnPort);
-  } catch (e) {
-    logger.fatal(`An unknown fatal error occurred: ${e}`);
-    process.exit(1);
-  }
+function start() {
+  return getPort()
+    .then(listenOnPort)
+    .catch(function(err) {
+      logger.fatal(`An unknown fatal error occurred: ${err}`);
+      process.exit(1);
+    });
 }
 
 /** Get the port using `get-port`. */
@@ -36,8 +37,9 @@ async function getPort(): Promise<string> {
 function listenOnPort(port: string) {
   const server = http.createServer(app); // Serve the app using `http`
   server.listen(port);
-  server.on('listening', onListening);
-  server.on('error', onError);
+  server.on('listening', onListening(port));
+  server.on('error', onError(port));
+  return server;
 }
 
 /** Returns a function to be called upon successful listen. */
@@ -56,6 +58,7 @@ function onListening(port: string) {
       LIVE_RELOAD === 'true' &&
       IS_DOCKER !== 'true'
     ) {
+      const opn = require('opn');
       opn(`http://127.0.0.1:${port}`).catch((err: Error) =>
         logger.warn('Could not open in browser: %O', err)
       );
@@ -84,3 +87,5 @@ function onError(port: string) {
     process.exit(2);
   };
 }
+
+export default start; // Export server starter for testing purposes

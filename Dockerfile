@@ -36,7 +36,7 @@ ENV NODE_ENV=$BUILD_ENV
 
 # Expose port and volume mount point
 EXPOSE 3000
-VOLUME /app/build
+VOLUME /app
 
 # Configure starting command
 CMD [ "yarn", "start" ]

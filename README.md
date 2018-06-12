@@ -2,7 +2,7 @@
 
 *An opinionated Typescript starter setup for [Express](https://www.expressjs.com) + [Pino](https://getpino.io). Deployable with [Docker](https://www.docker.com) and [PM2](http://pm2.keymetrics.io). Works really well with [`ng-starter`](https://github.com/steven-xie/ng-starter)!*
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![type definitions: Typescript](https://img.shields.io/badge/type%20definitions-Typescript-blue.svg)](https://www.typescriptlang.org) [![docker hub: latest](https://img.shields.io/badge/docker%20hub-latest-008bb8.svg)](https://hub.docker.com/r/stevenxie/express-starter/) [![CodeClimate: Maintainability](https://api.codeclimate.com/v1/badges/2ea966de97291efee5c1/maintainability)](https://codeclimate.com/github/steven-xie/express-starter/maintainability)
+[![Travis CI](https://img.shields.io/travis/steven-xie/express-starter.svg)](https://travis-ci.org/steven-xie/express-starter/) [![CodeClimate: Maintainability](https://api.codeclimate.com/v1/badges/2ea966de97291efee5c1/maintainability)](https://codeclimate.com/github/steven-xie/express-starter/maintainability) [![docker hub: latest](https://img.shields.io/badge/docker%20hub-latest-008bb8.svg)](https://hub.docker.com/r/stevenxie/express-starter/) [![type definitions: Typescript](https://img.shields.io/badge/type%20definitions-Typescript-blue.svg)](https://www.typescriptlang.org) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 ## Installation:
 
@@ -72,7 +72,8 @@ in development / production mode), and run the associated command:
 
 ## For a production build:
 yarn dk-build-prod
-yarn dk-build  # An alias for dk-build-prod
+## Or, a shorter alias for the above:
+yarn dk-build 
 
 ## For a development build:
 yarn dk-build-dev
