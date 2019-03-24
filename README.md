@@ -1,3 +1,10 @@
+> ### Archive Notice
+>
+> Since I no longer use [Express](https://www.expressjs.com) for my backend
+> services (I've no write my backends almost exclusively in
+> [Go](https://golang.org)), I'm archiving this repository—it will no longer
+> be maintained. Feel free to fork it, though!
+
 # express-starter
 
 *An opinionated Typescript starter setup for [Express](https://www.expressjs.com) + [Pino](https://getpino.io). Deployable with [Docker](https://www.docker.com) and [PM2](http://pm2.keymetrics.io). Works really well with [`ng-starter`](https://github.com/steven-xie/ng-starter)!*
